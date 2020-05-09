@@ -24,7 +24,10 @@
     <content><![CDATA[<blockquote>
 <p>参考链接：<a href="https://leanpub.com/understandinges6/read" target="_blank" rel="noopener">https://leanpub.com/understandinges6/read</a>  </p>
 </blockquote>
-<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>JavaScript 核心特性在 <a href="https://tc39.github.io/ecma262/" target="_blank" rel="noopener">ECMA-262</a> 标准中被定义，也叫做 <code>ECMAScript</code> ，我们所熟知<br>的在浏览器端和 <code>Node.js</code> 实际上是 ECMAScript 的一个超集。  </p>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>JavaScript 核心特性在 <a href="https://tc39.github.io/ecma262/" target="_blank" rel="noopener">ECMA-262</a> 标准中被定义，也叫做 <code>ECMAScript</code> ，我们所熟知的在浏览器端和 <code>Node.js</code> 实际上是 ECMAScript 的一个超集。  </p>
+<p>本文包含 es6+ 新增特性。</p>
+<a id="more"></a>
+
 <h2 id="ES6-演变之路"><a href="#ES6-演变之路" class="headerlink" title="ES6 演变之路"></a>ES6 演变之路</h2><h3 id="1999-发布-v3"><a href="#1999-发布-v3" class="headerlink" title="1999 发布 v3"></a>1999 发布 v3</h3><p>1999.TC39 年发布了 ECMA-262 第三版。  </p>
 <p>直到 2007 之前都没有任何变化。  </p>
 <h3 id="2007-发布-v4-v3-1"><a href="#2007-发布-v4-v3-1" class="headerlink" title="2007 发布 v4, v3.1"></a>2007 发布 v4, v3.1</h3><p>2007 年发布了第四版，包含以下特性：  </p>

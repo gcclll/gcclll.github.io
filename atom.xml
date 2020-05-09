@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.ii6g.com/"/>
-  <updated>2020-05-09T16:29:17.774Z</updated>
+  <updated>2020-05-09T17:11:55.420Z</updated>
   <id>http://blog.ii6g.com/</id>
   
   <author>
@@ -21,15 +21,15 @@
     <link href="http://blog.ii6g.com/blog/js-es6-plus.html"/>
     <id>http://blog.ii6g.com/blog/js-es6-plus.html</id>
     <published>2020-05-09T14:52:39.120Z</published>
-    <updated>2020-05-09T16:29:17.774Z</updated>
+    <updated>2020-05-09T17:11:55.420Z</updated>
     
     <summary type="html">
     
-      
-      
-        &lt;blockquote&gt;
-&lt;p&gt;参考链接：&lt;a href=&quot;https://leanpub.com/understandinges6/read&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leanpub.com/understandinges6
-      
+      &lt;blockquote&gt;
+&lt;p&gt;参考链接：&lt;a href=&quot;https://leanpub.com/understandinges6/read&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leanpub.com/understandinges6/read&lt;/a&gt;  &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;JavaScript 核心特性在 &lt;a href=&quot;https://tc39.github.io/ecma262/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;ECMA-262&lt;/a&gt; 标准中被定义，也叫做 &lt;code&gt;ECMAScript&lt;/code&gt; ，我们所熟知的在浏览器端和 &lt;code&gt;Node.js&lt;/code&gt; 实际上是 ECMAScript 的一个超集。  &lt;/p&gt;
+&lt;p&gt;本文包含 es6+ 新增特性。&lt;/p&gt;
     
     </summary>
     
