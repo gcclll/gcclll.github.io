@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>若叶知秋的博客</title>
+  
+  <subtitle>落叶相依浑似醉，潦倒何妨；悠悠岁月谁高歌，绝胜柳狂。</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://blog.ii6g.com/"/>
+  <updated>2020-05-09T16:29:17.774Z</updated>
+  <id>http://blog.ii6g.com/</id>
+  
+  <author>
+    <name>ZhiCheng Lee</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ES6 新语法</title>
+    <link href="http://blog.ii6g.com/blog/js/es6+.html"/>
+    <id>http://blog.ii6g.com/blog/js/es6+.html</id>
+    <published>2020-05-09T14:52:39.120Z</published>
+    <updated>2020-05-09T16:29:17.774Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;参考链接：&lt;a href=&quot;https://leanpub.com/understandinges6/read&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://leanpub.com/understandinges6
+      
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="http://blog.ii6g.com/categories/javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://blog.ii6g.com/tags/javascript/"/>
+    
+      <category term="es6" scheme="http://blog.ii6g.com/tags/es6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://blog.ii6g.com/blog/hello-world.html"/>
+    <id>http://blog.ii6g.com/blog/hello-world.html</id>
+    <published>2020-05-09T13:21:54.805Z</published>
+    <updated>2020-05-09T15:16:08.143Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+</feed>
