@@ -20,30 +20,45 @@
     var CONFIG = {"hostname":"blog.ii6g.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="七佛灭罪">
-<meta property="og:type" content="website">
-<meta property="og:title" content="若叶知秋的博客">
-<meta property="og:url" content="http://blog.ii6g.com/index.html">
+  <meta name="description" content="简介reactivity 是 vue next 里面通过 proxy + reflect 实现的响应式模块。 源码路径： packages&#x2F;reactivity 入口文件：packages&#x2F;reactivity&#x2F;src&#x2F;index.ts 疑问点解答：  shallowReactive 相当于浅复制，只针对对象的一级 reactive，嵌套的对象不会 reactive 参考：测试代码 reactiv">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue next 源码之 reactivity">
+<meta property="og:url" content="http://blog.ii6g.com/blog/vuejs-next-code-reactive.html">
 <meta property="og:site_name" content="若叶知秋的博客">
-<meta property="og:description" content="七佛灭罪">
+<meta property="og:description" content="简介reactivity 是 vue next 里面通过 proxy + reflect 实现的响应式模块。 源码路径： packages&#x2F;reactivity 入口文件：packages&#x2F;reactivity&#x2F;src&#x2F;index.ts 疑问点解答：  shallowReactive 相当于浅复制，只针对对象的一级 reactive，嵌套的对象不会 reactive 参考：测试代码 reactiv">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://qiniu.ii6g.com/1589614203.png?imageMogr2/thumbnail/!100p">
+<meta property="og:image" content="http://qiniu.ii6g.com/1589614685.png?imageMogr2/thumbnail/!100p">
+<meta property="og:image" content="http://qiniu.ii6g.com/1589694976.png?imageMogr2/thumbnail/!100p">
+<meta property="og:image" content="http://qiniu.ii6g.com/1589705626.png?imageMogr2/thumbnail/!100p">
+<meta property="og:image" content="http://qiniu.ii6g.com/1589705890.png?imageMogr2/thumbnail/!100p">
+<meta property="og:image" content="http://qiniu.ii6g.com/1589706174.png?imageMogr2/thumbnail/!100p">
+<meta property="og:image" content="http://qiniu.ii6g.com/1589706408.png?imageMogr2/thumbnail/!100p">
+<meta property="og:image" content="http://qiniu.ii6g.com/1589707939.png?imageMogr2/thumbnail/!100p">
+<meta property="og:image" content="http://qiniu.ii6g.com/1589709260.png?imageMogr2/thumbnail/!100p">
+<meta property="article:published_time" content="2020-05-15T07:47:23.649Z">
+<meta property="article:modified_time" content="2020-05-17T10:07:12.655Z">
 <meta property="article:author" content="ZhiCheng Lee">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="vuejs">
+<meta property="article:tag" content="vuenext">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://qiniu.ii6g.com/1589614203.png?imageMogr2/thumbnail/!100p">
 
-<link rel="canonical" href="http://blog.ii6g.com/">
+<link rel="canonical" href="http://blog.ii6g.com/blog/vuejs-next-code-reactive.html">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>若叶知秋的博客</title>
+  <title>Vue next 源码之 reactivity | 若叶知秋的博客</title>
   
 
 
@@ -171,9 +186,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -189,10 +205,9 @@
       <meta itemprop="name" content="若叶知秋的博客">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/vuejs-next-code-reactive.html" class="post-title-link" itemprop="url">Vue next 源码之 reactivity</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Vue next 源码之 reactivity
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -221,6 +236,13 @@
             </span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
         </div>
       </header>
@@ -231,7 +253,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p><code>reactivity</code> 是 vue next 里面通过 <code>proxy</code> + <code>reflect</code> 实现的响应式模块。</p>
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p><code>reactivity</code> 是 vue next 里面通过 <code>proxy</code> + <code>reflect</code> 实现的响应式模块。</p>
 <p>源码路径： <code>packages/reactivity</code></p>
 <p>入口文件：<code>packages/reactivity/src/index.ts</code></p>
 <p>疑问点解答：</p>
@@ -688,177 +710,96 @@
 </tr>
 </tbody></table>
 
-      
     </div>
 
     
     
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
+        <div class="reward-container">
+  <div>您的支持是对我最大的鼓励。</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
       
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://blog.ii6g.com/blog/js-es6-plus.html">
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpeg" alt="ZhiCheng Lee 微信支付">
+        <p>微信支付</p>
+      </div>
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/yiyeshu.jpeg">
-      <meta itemprop="name" content="ZhiCheng Lee">
-      <meta itemprop="description" content="七佛灭罪">
-    </span>
+  </div>
+</div>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="若叶知秋的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/js-es6-plus.html" class="post-title-link" itemprop="url">ES6 新语法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-09 22:52:39" itemprop="dateCreated datePublished" datetime="2020-05-09T22:52:39+08:00">2020-05-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-10 01:11:55" itemprop="dateModified" datetime="2020-05-10T01:11:55+08:00">2020-05-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>参考链接：<a href="https://leanpub.com/understandinges6/read" target="_blank" rel="noopener">https://leanpub.com/understandinges6/read</a>  </p>
-</blockquote>
-<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>JavaScript 核心特性在 <a href="https://tc39.github.io/ecma262/" target="_blank" rel="noopener">ECMA-262</a> 标准中被定义，也叫做 <code>ECMAScript</code> ，我们所熟知的在浏览器端和 <code>Node.js</code> 实际上是 ECMAScript 的一个超集。  </p>
-<p>本文包含 es6+ 新增特性。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/js-es6-plus.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>ZhiCheng Lee
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.ii6g.com/blog/vuejs-next-code-reactive.html" title="Vue next 源码之 reactivity">http://blog.ii6g.com/blog/vuejs-next-code-reactive.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://blog.ii6g.com/blog/hello-world.html">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/yiyeshu.jpeg">
-      <meta itemprop="name" content="ZhiCheng Lee">
-      <meta itemprop="description" content="七佛灭罪">
-    </span>
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="若叶知秋的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/hello-world.html" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
+    <div class="social-list">
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-05-09 21:21:54 / 修改时间：23:16:08" itemprop="dateCreated datePublished" datetime="2020-05-09T21:21:54+08:00">2020-05-09</time>
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/wechat_channel.jpg">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
             </span>
 
-          
-
+            <span class="label">WeChat</span>
+          </a>
         </div>
-      </header>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
 
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
+            <span class="label">RSS</span>
+          </a>
+        </div>
     </div>
+  </div>
 
-    
-    
-    
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/vuejs/" rel="tag"># vuejs</a>
+              <a href="/tags/vuenext/" rel="tag"># vuenext</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/js-es6-plus.html" rel="prev" title="ES6 新语法">
+      <i class="fa fa-chevron-left"></i> ES6 新语法
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -911,6 +852,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模块结构"><span class="nav-number">2.</span> <span class="nav-text">模块结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Proxy-和-Reflect-回顾"><span class="nav-number">3.</span> <span class="nav-text">Proxy 和 Reflect 回顾</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#reactive-函数"><span class="nav-number">4.</span> <span class="nav-text">reactive 函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#createReactiveObject"><span class="nav-number">5.</span> <span class="nav-text">createReactiveObject</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参数列表"><span class="nav-number">5.1.</span> <span class="nav-text">参数列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数体"><span class="nav-number">5.2.</span> <span class="nav-text">函数体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-reactive"><span class="nav-number">5.3.</span> <span class="nav-text">使用 reactive</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#handlers"><span class="nav-number">6.</span> <span class="nav-text">handlers</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#baseHandlers-ts"><span class="nav-number">6.1.</span> <span class="nav-text">baseHandlers.ts</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#列出文件中相关的函数和属性："><span class="nav-number">6.1.1.</span> <span class="nav-text">列出文件中相关的函数和属性：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#createGetter-isReadonly-false-shallow-false"><span class="nav-number">6.1.2.</span> <span class="nav-text">createGetter(isReadonly &#x3D; false, shallow &#x3D; false)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#递归-reactive，就在最后返回的时候检测-res-结果时候"><span class="nav-number">6.1.2.1.</span> <span class="nav-text">递归 reactive，就在最后返回的时候检测 res 结果时候</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#收集依赖-track"><span class="nav-number">6.1.2.2.</span> <span class="nav-text">收集依赖(track)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#createSetter-shallow-false"><span class="nav-number">6.1.3.</span> <span class="nav-text">createSetter(shallow &#x3D; false)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#effect-ts"><span class="nav-number">7.</span> <span class="nav-text">effect.ts</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#track-target-type-key"><span class="nav-number">7.1.</span> <span class="nav-text">track(target, type, key)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#trigger-…"><span class="nav-number">7.2.</span> <span class="nav-text">trigger(…)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#effect-fn-options"><span class="nav-number">7.3.</span> <span class="nav-text">effect(fn, options)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对比三个函数"><span class="nav-number">7.4.</span> <span class="nav-text">对比三个函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#半结"><span class="nav-number">8.</span> <span class="nav-text">半结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

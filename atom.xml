@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.ii6g.com/"/>
-  <updated>2020-05-09T17:11:55.420Z</updated>
+  <updated>2020-05-17T10:07:12.655Z</updated>
   <id>http://blog.ii6g.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Vue next 源码之 reactivity</title>
+    <link href="http://blog.ii6g.com/blog/vuejs-next-code-reactive.html"/>
+    <id>http://blog.ii6g.com/blog/vuejs-next-code-reactive.html</id>
+    <published>2020-05-15T07:47:23.649Z</published>
+    <updated>2020-05-17T10:07:12.655Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;&lt;code&gt;reactivity&lt;/code&gt; 是 vue next 里面通过 &lt;code&gt;proxy&lt;/code&gt; + &lt;code&gt;ref
+      
+    
+    </summary>
+    
+    
+      <category term="vuejs" scheme="http://blog.ii6g.com/categories/vuejs/"/>
+    
+    
+      <category term="javascript" scheme="http://blog.ii6g.com/tags/javascript/"/>
+    
+      <category term="vuejs" scheme="http://blog.ii6g.com/tags/vuejs/"/>
+    
+      <category term="vuenext" scheme="http://blog.ii6g.com/tags/vuenext/"/>
+    
+  </entry>
   
   <entry>
     <title>ES6 新语法</title>
