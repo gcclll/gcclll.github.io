@@ -821,7 +821,7 @@
 </li>
 </ul>
 <p>  <img src="http://qiniu.ii6g.com/1590118132.png?imageMogr2/thumbnail/!100p" alt=""></p>
-<pre><code>1. Loc1 : 访问 `counter.nested` 收集的 `{counter:{nested:{num:0}}} -&gt; Map{&apos;nested&apos; -&gt; Set(1)}` 依赖。
+<pre><code>1. Loc1 : 访问 counter.nested 收集的 `{counter:{nested:{num:0}}} -&gt; Map{&apos;nested&apos; -&gt; Set(1)}` 依赖。
   2. Loc2: 访问 `nested.num` 收集的 `{num:7}-&gt;Map{&apos;num&apos;-&gt;Set(1)}` 依赖。
   3. Loc2: 注意看这里，当给 `counter.nested.num = 7` 赋值的时候只会触发 `&apos;num&apos; -&gt; Set(1)`。</code></pre><ul>
 <li><p><font color="green"> ✓ should observe delete operations (1 ms)</font></p>
