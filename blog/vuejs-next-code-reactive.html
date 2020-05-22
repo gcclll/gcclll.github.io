@@ -49,7 +49,7 @@
 <meta property="og:image" content="http://qiniu.ii6g.com/1590131447.png?imageMogr2/thumbnail/!100p">
 <meta property="og:image" content="http://qiniu.ii6g.com/1590134578.png?imageMogr2/thumbnail/!100p">
 <meta property="article:published_time" content="2020-05-15T07:47:23.649Z">
-<meta property="article:modified_time" content="2020-05-22T09:37:35.203Z">
+<meta property="article:modified_time" content="2020-05-22T09:45:11.617Z">
 <meta property="article:author" content="ZhiCheng Lee">
 <meta property="article:tag" content="javascript">
 <meta property="article:tag" content="vuejs">
@@ -235,7 +235,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-22 17:37:35" itemprop="dateModified" datetime="2020-05-22T17:37:35+08:00">2020-05-22</time>
+                <time title="修改时间：2020-05-22 17:45:11" itemprop="dateModified" datetime="2020-05-22T17:45:11+08:00">2020-05-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -298,6 +298,8 @@
 <li><code>reactive.ts</code> 主要代码</li>
 <li><code>ref.ts</code> </li>
 </ol>
+<a id="more"></a>
+
 <h1 id="Proxy-和-Reflect-回顾"><a href="#Proxy-和-Reflect-回顾" class="headerlink" title="Proxy 和 Reflect 回顾"></a>Proxy 和 Reflect 回顾</h1><p>将 reactive -&gt; createReactiveObject 简化合并：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reactive</span>(<span class="params">target, toProxy, toRaw, baseHandlers, collectionHandlers</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ... 必须是对象 return</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// ... 已经设置过代理了</span></span><br><span class="line">  <span class="keyword">let</span> observed = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// ... 本身就是代理</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// ... 白名单检测</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// ... handlers</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// new 代理</span></span><br><span class="line">  <span class="keyword">let</span> handlers = baseHandlers || collectionHandlers || &#123;&#125; <span class="comment">// ...</span></span><br><span class="line">  observed = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, handlers)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 缓存代理设置结果到 toProxy, toRaw</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> observed</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 

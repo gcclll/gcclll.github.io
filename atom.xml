@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.ii6g.com/"/>
-  <updated>2020-05-22T09:37:35.203Z</updated>
+  <updated>2020-05-22T09:45:11.617Z</updated>
   <id>http://blog.ii6g.com/</id>
   
   <author>
@@ -21,14 +21,43 @@
     <link href="http://blog.ii6g.com/blog/vuejs-next-code-reactive.html"/>
     <id>http://blog.ii6g.com/blog/vuejs-next-code-reactive.html</id>
     <published>2020-05-15T07:47:23.649Z</published>
-    <updated>2020-05-22T09:37:35.203Z</updated>
+    <updated>2020-05-22T09:45:11.617Z</updated>
     
     <summary type="html">
     
-      
-      
-        &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;&lt;code&gt;reactivity&lt;/code&gt; 是 vue next 里面通过 &lt;code&gt;proxy&lt;/code&gt; + &lt;code&gt;ref
-      
+      &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;&lt;code&gt;reactivity&lt;/code&gt; 是 vue next 里面通过 &lt;code&gt;proxy&lt;/code&gt; + &lt;code&gt;reflect&lt;/code&gt; 实现的响应式模块。&lt;/p&gt;
+&lt;p&gt;源码路径： &lt;code&gt;packages/reactivity&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;入口文件：&lt;code&gt;packages/reactivity/src/index.ts&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;疑问点解答：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;shallowReactive&lt;/code&gt; 相当于浅复制，只针对对象的一级 reactive，嵌套的对象不会 reactive&lt;/p&gt;
+&lt;p&gt;参考：测试代码 reactive.spec.ts&lt;/p&gt;
+&lt;figure class=&quot;highlight ts&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;test(&lt;span class=&quot;string&quot;&gt;&#39;should keep reactive properties reactive&#39;&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; =&amp;gt;&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; props: &lt;span class=&quot;built_in&quot;&gt;any&lt;/span&gt; = shallowReactive(&amp;#123; n: reactive(&amp;#123; foo: &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; &amp;#125;) &amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      props.n = reactive(&amp;#123; foo: &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt; &amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      expect(isReactive(props.n)).toBe(&lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;阶段代码链接&quot;&gt;&lt;a href=&quot;#阶段代码链接&quot; class=&quot;headerlink&quot; title=&quot;阶段代码链接&quot;&gt;&lt;/a&gt;阶段代码链接&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;#code1&quot;&gt;测试用例 &lt;code&gt;reactive.spec.ts&lt;/code&gt; 通过后的代码链接&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#code2&quot;&gt;测试用例 &lt;code&gt;effect.spec.ts&lt;/code&gt;通过后的代码链接&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;遗留问题&quot;&gt;&lt;a href=&quot;#遗留问题&quot; class=&quot;headerlink&quot; title=&quot;遗留问题&quot;&gt;&lt;/a&gt;遗留问题&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;&lt;font color=&quot;green&quot;&gt;DONE&lt;/font&gt;&lt;/strong&gt; &lt;code&gt;ownKeys&lt;/code&gt; 代理收集的依赖不能被触发。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;更新&quot;&gt;&lt;a href=&quot;#更新&quot; class=&quot;headerlink&quot; title=&quot;更新&quot;&gt;&lt;/a&gt;更新&lt;/h2&gt;&lt;h3 id=&quot;2020-05-21-21-19-07-git-pull&quot;&gt;&lt;a href=&quot;#2020-05-21-21-19-07-git-pull&quot; class=&quot;headerlink&quot; title=&quot;2020-05-21 21:19:07 git pull&quot;&gt;&lt;/a&gt;2020-05-21 21:19:07 git pull&lt;/h3&gt;&lt;h1 id=&quot;模块结构&quot;&gt;&lt;a href=&quot;#模块结构&quot; class=&quot;headerlink&quot; title=&quot;模块结构&quot;&gt;&lt;/a&gt;模块结构&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;__tests__/&lt;/code&gt; 测试代码目录&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;src/&lt;/code&gt; 主要代码目录&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;src&lt;/code&gt; 目录下的文件：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;baseHandler.ts&lt;/code&gt; 传入给代理的对象，代理 &lt;code&gt;Object/Array&lt;/code&gt; 时使用的 Handlers。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;collectionHandlers.ts&lt;/code&gt; 传入给代理的对象，代理 &lt;code&gt;[Week]Set/Map&lt;/code&gt;类型时使用的 Handlers。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;computed.ts&lt;/code&gt; 计算属性代码&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;effect.ts&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;operations.ts&lt;/code&gt; 操作类型枚举&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;reactive.ts&lt;/code&gt; 主要代码&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ref.ts&lt;/code&gt; &lt;/li&gt;
+&lt;/ol&gt;
     
     </summary>
     
