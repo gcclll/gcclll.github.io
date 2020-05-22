@@ -821,9 +821,13 @@
 </li>
 </ul>
 <p>  <img src="http://qiniu.ii6g.com/1590118132.png?imageMogr2/thumbnail/!100p" alt=""></p>
-<pre><code>1. Loc1 : 访问 counter.nested 收集的 `{counter:{nested:{num:0}}} -&gt; Map{&apos;nested&apos; -&gt; Set(1)}` 依赖。
-  2. Loc2: 访问 `nested.num` 收集的 `{num:7}-&gt;Map{&apos;num&apos;-&gt;Set(1)}` 依赖。
-  3. Loc2: 注意看这里，当给 `counter.nested.num = 7` 赋值的时候只会触发 `&apos;num&apos; -&gt; Set(1)`。</code></pre><ul>
+<p>  ​    </p>
+<ol>
+<li>Loc1 : 访问 counter.nested 收集的 <code>{counter:{nested:{num:0}}} -&gt; Map{&#39;nested&#39; -&gt; Set(1)}</code> 依赖。</li>
+<li>Loc2: 访问 nested.num 收集的 {num:7}-&gt;Map{‘num’-&gt;Set(1)} 依赖。</li>
+<li>Loc2: 注意看这里，当给 counter.nested.num = 7 赋值的时候只会触发 ‘num’ -&gt; Set(1)。</li>
+</ol>
+<ul>
 <li><p><font color="green"> ✓ should observe delete operations (1 ms)</font></p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">it(<span class="string">'should observe delete operations'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> dummy</span><br><span class="line">  <span class="keyword">const</span> obj = reactive(&#123; <span class="attr">prop</span>: <span class="string">'value'</span> &#125;)</span><br><span class="line">  effect(<span class="function"><span class="params">()</span> =&gt;</span> (dummy = obj.prop)) <span class="comment">// 收集依赖 updater</span></span><br><span class="line"></span><br><span class="line">  expect(dummy).toBe(<span class="string">'value'</span>) <span class="comment">// true</span></span><br><span class="line">  <span class="comment">// 对象属性的删除操作，只会触发 trigger 里面的 if (key !== void 0) 收集依赖进 effects: []</span></span><br><span class="line">  <span class="keyword">delete</span> obj.prop <span class="comment">// 触发 updater 重新复制 dummy: undefined</span></span><br><span class="line">  expect(dummy).toBe(<span class="literal">undefined</span>) <span class="comment">// true</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 </li>
