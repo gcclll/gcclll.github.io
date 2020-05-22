@@ -207,10 +207,8 @@
 </blockquote>
 <p>分析上面的测试结果：</p>
 <ul>
-<li><p>objObserved.foo<code>直接取对象的成员值，触发了</code>proxy get`</p>
-</li>
-<li><p>objObserved.bar<code>取对象的对象成员，触发了</code>proxy get`</p>
-</li>
+<li><code>objObserved.foo</code> 直接取对象的成员值，触发了 <code>proxy get</code></li>
+<li><code>objObserved.bar</code> 取对象的对象成员，触发了 <code>proxy get</code></li>
 </ul>
 <ul>
 <li><code>objObserved.bar.name</code> 取嵌套对象的成员，触发了 <code>proxy get</code>但请注意实际上触发 <code>get</code> 的是 <code>objObserved.bar</code> 得取值过程，因为输出的 <code>res</code> 是 <code>{name: &quot;bar&quot;}</code>，也就是说取 <code>bar.name</code> 的<code>name</code>时候实际并没有触发 <code>proxy get</code>，这说明 <code>proxy get</code> 只能代理一级。</li>
@@ -568,7 +566,7 @@
 <p>Test Suites: 1 passed, 1 total<br>Tests:       14 passed, 14 total<br>Snapshots:   0 total<br>Time:        6.436 s<br>Ran all test suites.</p>
 </blockquote>
 <p><span id="code1">阶段代码链接 <a href="https://github.com/gcclll/vue-next-code-read/blob/master/bakups/reactive_with_array.js" target="_blank" rel="noopener">reactive_with_array.js</a>  代码</span></p>
-<h1 id="其他原子操作-delete-has-ownKeys"><a href="#其他原子操作-delete-has-ownKeys" class="headerlink" title="其他原子操作(delete, has, ownKeys)"></a>其他原子操作(delete, has, ownKeys)</h1><p>前面完成了 <code>proxy-set</code> 和 <code>proxy-get</code>，这节继续完成其他的 <code>proxy</code>，包含：</p>
+<h1 id="handlers续-baseHandlers-的-delete-has-ownKeys"><a href="#handlers续-baseHandlers-的-delete-has-ownKeys" class="headerlink" title="handlers续(baseHandlers 的 delete, has, ownKeys)"></a>handlers续(baseHandlers 的 delete, has, ownKeys)</h1><p>前面完成了 <code>proxy-set</code> 和 <code>proxy-get</code>，这节继续完成其他的 <code>proxy</code>，包含：</p>
 <ol>
 <li><code>deleteProperty(target, key)</code></li>
 <li><code>ownKeys(target)</code></li>
