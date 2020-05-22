@@ -43,11 +43,13 @@
 <meta property="og:image" content="http://qiniu.ii6g.com/1590068464.png?imageMogr2/thumbnail/!100p">
 <meta property="og:image" content="http://qiniu.ii6g.com/1590068984.png?imageMogr2/thumbnail/!100p">
 <meta property="og:image" content="http://qiniu.ii6g.com/1590069039.png?imageMogr2/thumbnail/!100p">
+<meta property="og:image" content="http://qiniu.ii6g.com/1590139513.png?imageMogr2/thumbnail/!100p">
+<meta property="og:image" content="http://qiniu.ii6g.com/1590139770.png?imageMogr2/thumbnail/!100p">
 <meta property="og:image" content="http://qiniu.ii6g.com/1590118132.png?imageMogr2/thumbnail/!100p">
 <meta property="og:image" content="http://qiniu.ii6g.com/1590131447.png?imageMogr2/thumbnail/!100p">
 <meta property="og:image" content="http://qiniu.ii6g.com/1590134578.png?imageMogr2/thumbnail/!100p">
 <meta property="article:published_time" content="2020-05-15T07:47:23.649Z">
-<meta property="article:modified_time" content="2020-05-22T09:18:56.543Z">
+<meta property="article:modified_time" content="2020-05-22T09:29:50.250Z">
 <meta property="article:author" content="ZhiCheng Lee">
 <meta property="article:tag" content="javascript">
 <meta property="article:tag" content="vuejs">
@@ -233,7 +235,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-22 17:18:56" itemprop="dateModified" datetime="2020-05-22T17:18:56+08:00">2020-05-22</time>
+                <time title="修改时间：2020-05-22 17:29:50" itemprop="dateModified" datetime="2020-05-22T17:29:50+08:00">2020-05-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -989,8 +991,9 @@
 <p><img src="http://qiniu.ii6g.com/1590068984.png?imageMogr2/thumbnail/!100p" alt=""></p>
 <p><img src="http://qiniu.ii6g.com/1590069039.png?imageMogr2/thumbnail/!100p" alt=""></p>
 <p>看最后的图发现问题，首先，数组就一个元素，长度为1，最大索引为0，在 push 之后，长度为2，最大索引为1，也就是说这个新的索引即新的 key，属于新增属性操作，应该要走到 trigger:add ，但是实际走了 trigger:set 里面去了。</p>
-<p>问题就在 <code>if(!target.hasOwnProperty(key))</code> 这一行，它不应该取 <code>Reflect.set(...)</code> 之后的 target 因为这事更新之后的，肯定有 key: 1了。</p>
-<p>修改： 在 <code>Reflect.set(...)</code> 之前先判断： <code>hadKey = target.hasOwnProperty(key)</code> 然后使用缓存的 <code>hadKey</code> 进行判断： <code>if(!hadKey) {...}</code>。</p>
+<p>问题就在 <code>if(!target.hasOwnProperty(key))</code> 这一行，它不应该取 <code>Reflect.set(...)</code> 之后的 target 因为这是更新之后的，肯定有 key: 1了。</p>
+<p>修改： </p>
+<p>在 <code>Reflect.set(...)</code> 之前先 <code>hadKey = target.hasOwnProperty(key)</code> 然后使用缓存的 <code>hadKey</code> 进行判断 <code>if(!hadKey) {...}</code>。</p>
 <p>修改之后测试通过：</p>
 <blockquote>
 <p>☁  vue-next-code-read [master] ⚡  jest<br>PASS  packages/<strong>tests</strong>/reactive/reactive.spec.js<br>PASS  packages/<strong>tests</strong>/reactive/effect.spec.js</p>
@@ -1002,7 +1005,7 @@
 <p>需要增加以下内容：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 符号类型检测</span></span><br><span class="line"><span class="keyword">const</span> isSymbol = <span class="function">(<span class="params">val</span>) =&gt;</span> <span class="keyword">typeof</span> val === <span class="string">'symbol'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. Symbol 上的所有符号属性</span></span><br><span class="line"><span class="keyword">const</span> builtInSymbols = <span class="keyword">new</span> <span class="built_in">Set</span>(</span><br><span class="line">  <span class="built_in">Object</span>.getOwnPropertyNames(<span class="built_in">Symbol</span>)</span><br><span class="line">    .map(<span class="function"><span class="params">key</span> =&gt;</span> (<span class="built_in">Symbol</span>)[key])</span><br><span class="line">    .filter(isSymbol)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. createGetter中增加判断</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createGetter</span>(<span class="params">...arg</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (isSymbol(key) &amp;&amp; builtInSymbols.has(key) || key === <span class="string">'__proto__'</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">  <span class="comment">// ....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>重新 jest 通过</p>
+<p>重测 jest 通过。</p>
 </li>
 <li><p><font color="red">● reactivity/effect › scheduler</font><br>真怀疑当时自己是故意的，尽是些地级错误（捂脸，🤦‍♀️，(<em>/ω＼</em>)）！！！</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 修改前：</span></span><br><span class="line"><span class="comment">// if (effect.options &amp;&amp; effect.options.shecduler) &#123;</span></span><br><span class="line"><span class="comment">// 修改后：</span></span><br><span class="line"><span class="keyword">if</span> (effect.options &amp;&amp; effect.options.scheduler) &#123;</span><br></pre></td></tr></table></figure>
@@ -1024,7 +1027,9 @@
 
 </li>
 </ol>
-<p>到此 <code>effect.spec.ts</code> 中除了 <code>ref</code> 有关的测试用例全部测试通过，下面来逐个分析：</p>
+<p>到此 <code>effect.spec.ts</code> 中除了 <code>ref</code> 有关的测试用例全部测试通过，</p>
+<p><img src="http://qiniu.ii6g.com/1590139513.png?imageMogr2/thumbnail/!100p" alt=""></p>
+<p>下面来逐个分析 &gt;&gt;&gt; go go go…</p>
 <h3 id="逐个分析用例"><a href="#逐个分析用例" class="headerlink" title="逐个分析用例"></a>逐个分析用例</h3><p>通过运行 <code>jest --verbose</code> 将所有用例测试结果列出：</p>
 <ul>
 <li><p><font color="green">✓ should run the passed function once (wrapped by a effect) (4 ms)</font></p>
@@ -1040,7 +1045,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> dummy,</span><br><span class="line">    n = <span class="number">0</span></span><br><span class="line"><span class="keyword">const</span> counter = reactive(&#123; <span class="attr">num1</span>: <span class="number">0</span>, <span class="attr">num2</span>: <span class="number">0</span> &#125;)</span><br><span class="line">effect(<span class="function"><span class="params">()</span> =&gt;</span> (n++, (dummy = counter.num1 + counter.num1 + counter.num2)))</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(&#123; dummy, n &#125;, <span class="number">1</span>)</span><br><span class="line">counter.num1 = counter.num2 = <span class="number">7</span></span><br><span class="line"><span class="built_in">console</span>.log(&#123; dummy, n &#125;, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
 
 <p>结果图示：</p>
-<p>![image-20200522110957536](/Users/simon/Library/Application Support/typora-user-images/image-20200522110957536.png)</p>
+<p><img src="http://qiniu.ii6g.com/1590139770.png?imageMogr2/thumbnail/!100p" alt=""></p>
 <ol>
 <li>depsMap 有两个 map，分别是 num1, num2，</li>
 <li>trigger: set 触发了两次，且 num2 先触发 num1 紧随其后，因为赋值操作是从右到左的顺序进行。    </li>
