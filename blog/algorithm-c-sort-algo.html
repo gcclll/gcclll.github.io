@@ -20,30 +20,36 @@
     var CONFIG = {"hostname":"blog.ii6g.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="七佛灭罪">
-<meta property="og:type" content="website">
-<meta property="og:title" content="若叶知秋的博客">
-<meta property="og:url" content="http://blog.ii6g.com/index.html">
+  <meta name="description" content="递归阶乘函数 n &#x3D;&#x3D; 0 ? n! &#x3D; 1  n &gt; 0 ? n! &#x3D; n * (n - 1) * (n - 2) &amp;#x2026; 2 * 1   123456789101112131415161718192021222324#define __STDC_WANT_LIB_EXT1__ 1#include &lt;string.h&gt;#include &lt;stdio.h&gt;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法系列(Algorithm)-排序算法（C实现）">
+<meta property="og:url" content="http://blog.ii6g.com/blog/algorithm-c-sort-algo.html">
 <meta property="og:site_name" content="若叶知秋的博客">
-<meta property="og:description" content="七佛灭罪">
+<meta property="og:description" content="递归阶乘函数 n &#x3D;&#x3D; 0 ? n! &#x3D; 1  n &gt; 0 ? n! &#x3D; n * (n - 1) * (n - 2) &amp;#x2026; 2 * 1   123456789101112131415161718192021222324#define __STDC_WANT_LIB_EXT1__ 1#include &lt;string.h&gt;#include &lt;stdio.h&gt;#">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-22T10:08:05.691Z">
+<meta property="article:modified_time" content="2020-05-22T10:54:55.643Z">
 <meta property="article:author" content="ZhiCheng Lee">
+<meta property="article:tag" content="algorithm">
+<meta property="article:tag" content="javasciprt">
+<meta property="article:tag" content="c">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://blog.ii6g.com/">
+<link rel="canonical" href="http://blog.ii6g.com/blog/algorithm-c-sort-algo.html">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>若叶知秋的博客</title>
+  <title>算法系列(Algorithm)-排序算法（C实现） | 若叶知秋的博客</title>
   
 
 
@@ -171,98 +177,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://blog.ii6g.com/blog/algorithm-leetcode.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/yiyeshu.jpeg">
-      <meta itemprop="name" content="ZhiCheng Lee">
-      <meta itemprop="description" content="七佛灭罪">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="若叶知秋的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/algorithm-leetcode.html" class="post-title-link" itemprop="url">算法系列(Algorithm)-leetcode（一）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-05-22 18:22:30 / 修改时间：18:53:18" itemprop="dateCreated datePublished" datetime="2020-05-22T18:22:30+08:00">2020-05-22</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h1><h2 id="删除字符串中重复的字符"><a href="#删除字符串中重复的字符" class="headerlink" title="删除字符串中重复的字符"></a>删除字符串中重复的字符</h2><p><a href="https://leetcode.com/articles/remove-all-adjacent-duplicates-in-string/" target="_blank" rel="noopener">https://leetcode.com/articles/remove-all-adjacent-duplicates-in-string/</a></p>
-<p>题解：删除靠着的重复字符，然后对删除后的字符执行同样的操作，直到没有紧靠着的重复字符为止。</p>
-<p>  比如： abbaca =&gt; del, bb =&gt; aaca =&gt; del, aa =&gt; ca</p>
-<p>  最终 =abbaca= 经过处理得到 =ca= 。</p>
-<h3 id="while-循环版本"><a href="#while-循环版本" class="headerlink" title="while 循环版本"></a><em>while</em> 循环版本</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> del = <span class="function"><span class="params">str</span> =&gt;</span> str.replace(<span class="regexp">/([a-z])\1&#123;1,&#125;/gi</span>, <span class="string">''</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rmDupsWithWhile</span>(<span class="params">current</span>) </span>&#123;</span><br><span class="line"><span class="keyword">let</span> last = <span class="string">''</span></span><br><span class="line"><span class="keyword">while</span> (last !== current) &#123;</span><br><span class="line">last = current</span><br><span class="line">current = del(current)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> current</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.time(<span class="string">'Time'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'result:'</span>, rmDupsWithWhile(<span class="string">'abbaca'</span>))</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">'Time'</span>)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果：</p>
-<blockquote>
-<dl><dt>: result: ca<br>: Time: 3.740ms</dt><dd>undefined</dd></dl></blockquote>
-<p>原理含简单，就是不断的使用正则去重复替换掉重复的连续字符，直到最后 <del>last === current</del> 为止，</p>
-<p>因为一旦没有重复连续字符了， =replace= 的结果都最终一样。</p>
-<h3 id="正则递归版本-尾调用未优化"><a href="#正则递归版本-尾调用未优化" class="headerlink" title="正则递归版本(尾调用未优化)"></a>正则递归版本(尾调用未优化)</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'abbaca'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> del = <span class="function"><span class="params">s</span> =&gt;</span> s.replace(<span class="regexp">/([a-z])\1&#123;1,&#125;/gi</span>, <span class="string">''</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rmDupsWithRecursionNoOptimized</span>(<span class="params">current, last</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (last == current) <span class="keyword">return</span> current</span><br><span class="line"></span><br><span class="line">  last = current</span><br><span class="line">  current = del(current)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> res = rmDupsWithRecursionNoOptimized(current, last)</span><br><span class="line">  <span class="comment">// 不满足尾调用优化：未立即返回执行结果，非最后一个语句</span></span><br><span class="line">  <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.time(<span class="string">'Time'</span>)</span><br><span class="line"><span class="keyword">const</span> res = rmDupsWithRecursionNoOptimized(str)</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">'Time'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(res)</span><br></pre></td></tr></table></figure>
-
-<p>结果：</p>
-<blockquote>
-<p>: Time: 0.446ms<br>   : ca<br>   : undefined</p>
-</blockquote>
-<h3 id="正则递归版本-尾调用优化"><a href="#正则递归版本-尾调用优化" class="headerlink" title="正则递归版本(尾调用优化)"></a>正则递归版本(尾调用优化)</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'abbaca'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> del = <span class="function"><span class="params">s</span> =&gt;</span> s.replace(<span class="regexp">/([a-z])\1&#123;1,&#125;/gi</span>, <span class="string">''</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rmDupsWithRecursionOptimized</span>(<span class="params">current, last</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (last == current) <span class="keyword">return</span> current</span><br><span class="line"></span><br><span class="line">  last = current</span><br><span class="line">  current = del(current)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 尾调用优化条件： 1. 立即返回结果，2. 无变量引用，3. 最后一行</span></span><br><span class="line">  <span class="keyword">return</span> rmDupsWithRecursionOptimized(current, last)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.time(<span class="string">'Time'</span>)</span><br><span class="line"><span class="keyword">const</span> res = rmDupsWithRecursionOptimized(str)</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">'Time'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(res)</span><br></pre></td></tr></table></figure>
-
-<p>结果：</p>
-<blockquote>
-<dl><dt>: Time: 0.463ms<br>: ca</dt><dd>undefined</dd></dl></blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -278,10 +196,9 @@
       <meta itemprop="name" content="若叶知秋的博客">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/algorithm-c-sort-algo.html" class="post-title-link" itemprop="url">算法系列(Algorithm)-排序算法（C实现）</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          算法系列(Algorithm)-排序算法（C实现）
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -304,6 +221,13 @@
             </span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
         </div>
       </header>
@@ -314,7 +238,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h1><h2 id="阶乘函数"><a href="#阶乘函数" class="headerlink" title="阶乘函数"></a>阶乘函数</h2><ol>
+        <h1 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h1><h2 id="阶乘函数"><a href="#阶乘函数" class="headerlink" title="阶乘函数"></a>阶乘函数</h2><ol>
 <li><p>n == 0 ? n! = 1</p>
 </li>
 <li><p>n &gt; 0 ? n! = n * (n - 1) * (n - 2) &#x2026; 2 * 1  </p>
@@ -703,312 +627,100 @@ null
 <p>#12 是以 <code>quick_sort(nums, 8 + 1, 9)</code> 进入下次递归而满足条件是输出的结果  </p>
 <p>由此我们就得到了所有输出结果的分析。  </p>
 
-      
     </div>
 
     
     
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
+        <div class="reward-container">
+  <div>您的支持是对我最大的鼓励。</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
       
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://blog.ii6g.com/blog/vuejs-next-code-reactive.html">
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpeg" alt="ZhiCheng Lee 微信支付">
+        <p>微信支付</p>
+      </div>
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/yiyeshu.jpeg">
-      <meta itemprop="name" content="ZhiCheng Lee">
-      <meta itemprop="description" content="七佛灭罪">
-    </span>
+  </div>
+</div>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="若叶知秋的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/vuejs-next-code-reactive.html" class="post-title-link" itemprop="url">Vue next 源码之 reactivity</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-15 15:47:23" itemprop="dateCreated datePublished" datetime="2020-05-15T15:47:23+08:00">2020-05-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-26 19:32:53" itemprop="dateModified" datetime="2020-05-26T19:32:53+08:00">2020-05-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vuejs/" itemprop="url" rel="index"><span itemprop="name">vuejs</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p><code>reactivity</code> 是 vue next 里面通过 <code>proxy</code> + <code>reflect</code> 实现的响应式模块。</p>
-<p>源码路径： <code>packages/reactivity</code></p>
-<p>入口文件：<code>packages/reactivity/src/index.ts</code></p>
-<p>疑问点解答：</p>
-<ol>
-<li><p><code>shallowReactive</code> 相当于浅复制，只针对对象的一级 reactive，嵌套的对象不会 reactive</p>
-<p>参考：测试代码 reactive.spec.ts</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">test(<span class="string">'should keep reactive properties reactive'</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> props: <span class="built_in">any</span> = shallowReactive(&#123; n: reactive(&#123; foo: <span class="number">1</span> &#125;) &#125;)</span><br><span class="line">      props.n = reactive(&#123; foo: <span class="number">2</span> &#125;)</span><br><span class="line">      expect(isReactive(props.n)).toBe(<span class="literal">true</span>)</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
-
-
-</li>
-</ol>
-<h2 id="阶段代码链接"><a href="#阶段代码链接" class="headerlink" title="阶段代码链接"></a>阶段代码链接</h2><ol>
-<li><a href="#code1">测试用例 <code>reactive.spec.ts</code> 通过后的代码链接</a></li>
-<li><a href="#code2">测试用例 <code>effect.spec.ts</code>通过后的代码链接</a></li>
-<li><a href="#file-0521">05-21号 git pull 后的更新合 并之后的 reactive.js</a></li>
-<li><a href="https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_files_v" target="_blank" rel="noopener">将 reactive.js 拆分成 effect.js + baseHandlers.js</a></li>
-<li><a href="https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_collection_get_set" target="_blank" rel="noopener">完成 collection handlers(set + get)</a></li>
-<li><a href="https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_collection_map_set" target="_blank" rel="noopener">完成 collection Map, Set 支持</a></li>
-<li><a href="https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_ref" target="_blank" rel="noopener">支持 Ref 类型</a></li>
-</ol>
-<h2 id="文中重点链接"><a href="#文中重点链接" class="headerlink" title="文中重点链接"></a>文中重点链接</h2><ol>
-<li><p><a href="#test-case-rloops">vue 中是如何防止在 effect(fn) 的 fn 中防止 ob.prop++ 导致栈溢出的？</a></p>
-</li>
-<li><p><a href="#test-case-json">vue 中为何能对 JSON.parse(JSON.stringify({})) 起作用的？</a></p>
-</li>
-<li><p><a href="#question-this">集合 handlers 的 get 函数实现 this 问题</a></p>
-</li>
-<li><p><a href="#question-raw-key">Key 和 rawKey 的问题(get 中)，为什么要两次 track:get？</a></p>
-</li>
-<li><p><a href="#question-key1-key11">为什么 key1 和 toReactive(key1) 后的 key11 前后 set 会改变 key1 对应的值？？？</a></p>
-</li>
-<li><p><a href="#reactive-nest-ref">如果 Ref 类型放在一个对象中 reactive 化会有什么结果？？？</a></p>
-</li>
-</ol>
-<h2 id="遗留问题"><a href="#遗留问题" class="headerlink" title="遗留问题"></a>遗留问题</h2><ol>
-<li><p><strong><font color="green">DONE</font></strong> <code>ownKeys</code> 代理收集的依赖不能被触发。</p>
-</li>
-<li><p><font color="red">TODO</font> <a href="#question-ref-++">Ref:a 类型在对象中执行 obj.a++ 之后依旧是 Ref 类型的 a ???</a></p>
-</li>
-</ol>
-<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><h3 id="2020-05-21-21-19-07-git-pull"><a href="#2020-05-21-21-19-07-git-pull" class="headerlink" title="2020-05-21 21:19:07 git pull"></a>2020-05-21 21:19:07 git pull</h3><h1 id="模块结构"><a href="#模块结构" class="headerlink" title="模块结构"></a>模块结构</h1><ol>
-<li><code>__tests__/</code> 测试代码目录</li>
-<li><code>src/</code> 主要代码目录</li>
-</ol>
-<p><code>src</code> 目录下的文件：</p>
-<ol>
-<li><code>baseHandler.ts</code> 传入给代理的对象，代理 <code>Object/Array</code> 时使用的 Handlers。</li>
-<li><code>collectionHandlers.ts</code> 传入给代理的对象，代理 <code>[Week]Set/Map</code>类型时使用的 Handlers。</li>
-<li><code>computed.ts</code> 计算属性代码</li>
-<li><code>effect.ts</code></li>
-<li><code>operations.ts</code> 操作类型枚举</li>
-<li><code>reactive.ts</code> 主要代码</li>
-<li><code>ref.ts</code> </li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/vuejs-next-code-reactive.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>ZhiCheng Lee
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.ii6g.com/blog/algorithm-c-sort-algo.html" title="算法系列(Algorithm)-排序算法（C实现）">http://blog.ii6g.com/blog/algorithm-c-sort-algo.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://blog.ii6g.com/blog/js-es6-plus.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/yiyeshu.jpeg">
-      <meta itemprop="name" content="ZhiCheng Lee">
-      <meta itemprop="description" content="七佛灭罪">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="若叶知秋的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/js-es6-plus.html" class="post-title-link" itemprop="url">ES6 新语法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-09 22:52:39" itemprop="dateCreated datePublished" datetime="2020-05-09T22:52:39+08:00">2020-05-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-10 01:11:55" itemprop="dateModified" datetime="2020-05-10T01:11:55+08:00">2020-05-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>参考链接：<a href="https://leanpub.com/understandinges6/read" target="_blank" rel="noopener">https://leanpub.com/understandinges6/read</a>  </p>
-</blockquote>
-<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>JavaScript 核心特性在 <a href="https://tc39.github.io/ecma262/" target="_blank" rel="noopener">ECMA-262</a> 标准中被定义，也叫做 <code>ECMAScript</code> ，我们所熟知的在浏览器端和 <code>Node.js</code> 实际上是 ECMAScript 的一个超集。  </p>
-<p>本文包含 es6+ 新增特性。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/js-es6-plus.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://blog.ii6g.com/blog/hello-world.html">
+    <div class="social-list">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/yiyeshu.jpeg">
-      <meta itemprop="name" content="ZhiCheng Lee">
-      <meta itemprop="description" content="七佛灭罪">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="若叶知秋的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/hello-world.html" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-05-09 21:21:54 / 修改时间：23:16:08" itemprop="dateCreated datePublished" datetime="2020-05-09T21:21:54+08:00">2020-05-09</time>
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/wechat_channel.jpg">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
             </span>
 
-          
-
+            <span class="label">WeChat</span>
+          </a>
         </div>
-      </header>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
 
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
+            <span class="label">RSS</span>
+          </a>
+        </div>
     </div>
+  </div>
 
-    
-    
-    
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+          <div class="post-tags">
+              <a href="/tags/algorithm/" rel="tag"># algorithm</a>
+              <a href="/tags/javasciprt/" rel="tag"># javasciprt</a>
+              <a href="/tags/c/" rel="tag"># c</a>
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/vuejs-next-code-reactive.html" rel="prev" title="Vue next 源码之 reactivity">
+      <i class="fa fa-chevron-left"></i> Vue next 源码之 reactivity
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/algorithm-leetcode.html" rel="next" title="算法系列(Algorithm)-leetcode（一）">
+      算法系列(Algorithm)-leetcode（一） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -1061,6 +773,7 @@ null
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#递归"><span class="nav-number">1.</span> <span class="nav-text">递归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#阶乘函数"><span class="nav-number">1.1.</span> <span class="nav-text">阶乘函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归查找"><span class="nav-number">1.2.</span> <span class="nav-text">递归查找</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">2.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二分查找法"><span class="nav-number">3.</span> <span class="nav-text">二分查找法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#初级版"><span class="nav-number">3.1.</span> <span class="nav-text">初级版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化版"><span class="nav-number">3.2.</span> <span class="nav-text">优化版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归版"><span class="nav-number">3.3.</span> <span class="nav-text">递归版</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#桶排序"><span class="nav-number">4.</span> <span class="nav-text">桶排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择排序"><span class="nav-number">5.</span> <span class="nav-text">选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#递归示例"><span class="nav-number">5.1.</span> <span class="nav-text">递归示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双重循环示例"><span class="nav-number">5.2.</span> <span class="nav-text">双重循环示例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插入排序"><span class="nav-number">6.</span> <span class="nav-text">插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#递增方式"><span class="nav-number">6.1.</span> <span class="nav-text">递增方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递减方式"><span class="nav-number">6.2.</span> <span class="nav-text">递减方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输出结果"><span class="nav-number">6.3.</span> <span class="nav-text">输出结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度"><span class="nav-number">6.4.</span> <span class="nav-text">时间复杂度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#归并排序"><span class="nav-number">7.</span> <span class="nav-text">归并排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#main-函数"><span class="nav-number">7.1.</span> <span class="nav-text">main 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序函数-merge-sort"><span class="nav-number">7.2.</span> <span class="nav-text">排序函数 merge_sort</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拆分函数-resolve"><span class="nav-number">7.3.</span> <span class="nav-text">拆分函数 resolve</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合并函数-merge"><span class="nav-number">7.4.</span> <span class="nav-text">合并函数 merge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#merge-优化"><span class="nav-number">7.5.</span> <span class="nav-text">merge 优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度分析"><span class="nav-number">7.6.</span> <span class="nav-text">时间复杂度分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#快速排序"><span class="nav-number">8.</span> <span class="nav-text">快速排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#main"><span class="nav-number">8.1.</span> <span class="nav-text">main</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#quick-sort-int-nums-int-p-int-r"><span class="nav-number">8.2.</span> <span class="nav-text">quick_sort(int nums[], int p, int r)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度分析-1"><span class="nav-number">8.3.</span> <span class="nav-text">时间复杂度分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输出结果分析"><span class="nav-number">8.4.</span> <span class="nav-text">输出结果分析</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

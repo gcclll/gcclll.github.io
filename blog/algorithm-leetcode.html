@@ -20,19 +20,21 @@
     var CONFIG = {"hostname":"blog.ii6g.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="字符串操作删除字符串中重复的字符https:&#x2F;&#x2F;leetcode.com&#x2F;articles&#x2F;remove-all-adjacent-duplicates-in-string&#x2F; 题解：删除靠着的重复字符，然后对删除后的字符执行同样的操作，直到没有紧靠着的重复字符为止。   比如： abbaca &#x3D;&gt; del, bb &#x3D;&gt; aaca &#x3D;&gt; del, aa &#x3D;&gt; ca   最终">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://blog.ii6g.com/blog/hello-world.html">
+<meta property="og:title" content="算法系列(Algorithm)-leetcode（一）">
+<meta property="og:url" content="http://blog.ii6g.com/blog/algorithm-leetcode.html">
 <meta property="og:site_name" content="若叶知秋的博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="字符串操作删除字符串中重复的字符https:&#x2F;&#x2F;leetcode.com&#x2F;articles&#x2F;remove-all-adjacent-duplicates-in-string&#x2F; 题解：删除靠着的重复字符，然后对删除后的字符执行同样的操作，直到没有紧靠着的重复字符为止。   比如： abbaca &#x3D;&gt; del, bb &#x3D;&gt; aaca &#x3D;&gt; del, aa &#x3D;&gt; ca   最终">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-05-09T13:21:54.805Z">
-<meta property="article:modified_time" content="2020-05-09T15:16:08.143Z">
+<meta property="article:published_time" content="2020-05-22T10:22:30.862Z">
+<meta property="article:modified_time" content="2020-05-22T10:53:18.921Z">
 <meta property="article:author" content="ZhiCheng Lee">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="es6">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://blog.ii6g.com/blog/hello-world.html">
+<link rel="canonical" href="http://blog.ii6g.com/blog/algorithm-leetcode.html">
 
 
 <script id="page-configurations">
@@ -45,7 +47,7 @@
   };
 </script>
 
-  <title>Hello World | 若叶知秋的博客</title>
+  <title>算法系列(Algorithm)-leetcode（一） | 若叶知秋的博客</title>
   
 
 
@@ -180,7 +182,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://blog.ii6g.com/blog/hello-world.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.ii6g.com/blog/algorithm-leetcode.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/yiyeshu.jpeg">
@@ -193,7 +195,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hello World
+          算法系列(Algorithm)-leetcode（一）
         </h1>
 
         <div class="post-meta">
@@ -204,7 +206,16 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-05-09 21:21:54 / 修改时间：23:16:08" itemprop="dateCreated datePublished" datetime="2020-05-09T21:21:54+08:00">2020-05-09</time>
+              <time title="创建时间：2020-05-22 18:22:30 / 修改时间：18:53:18" itemprop="dateCreated datePublished" datetime="2020-05-22T18:22:30+08:00">2020-05-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
             </span>
 
           
@@ -225,19 +236,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <h1 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h1><h2 id="删除字符串中重复的字符"><a href="#删除字符串中重复的字符" class="headerlink" title="删除字符串中重复的字符"></a>删除字符串中重复的字符</h2><p><a href="https://leetcode.com/articles/remove-all-adjacent-duplicates-in-string/" target="_blank" rel="noopener">https://leetcode.com/articles/remove-all-adjacent-duplicates-in-string/</a></p>
+<p>题解：删除靠着的重复字符，然后对删除后的字符执行同样的操作，直到没有紧靠着的重复字符为止。</p>
+<p>  比如： abbaca =&gt; del, bb =&gt; aaca =&gt; del, aa =&gt; ca</p>
+<p>  最终 =abbaca= 经过处理得到 =ca= 。</p>
+<h3 id="while-循环版本"><a href="#while-循环版本" class="headerlink" title="while 循环版本"></a><em>while</em> 循环版本</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> del = <span class="function"><span class="params">str</span> =&gt;</span> str.replace(<span class="regexp">/([a-z])\1&#123;1,&#125;/gi</span>, <span class="string">''</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rmDupsWithWhile</span>(<span class="params">current</span>) </span>&#123;</span><br><span class="line"><span class="keyword">let</span> last = <span class="string">''</span></span><br><span class="line"><span class="keyword">while</span> (last !== current) &#123;</span><br><span class="line">last = current</span><br><span class="line">current = del(current)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> current</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.time(<span class="string">'Time'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'result:'</span>, rmDupsWithWhile(<span class="string">'abbaca'</span>))</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">'Time'</span>)</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<blockquote>
+<dl><dt>: result: ca<br>: Time: 3.740ms</dt><dd>undefined</dd></dl></blockquote>
+<p>原理含简单，就是不断的使用正则去重复替换掉重复的连续字符，直到最后 <del>last === current</del> 为止，</p>
+<p>因为一旦没有重复连续字符了， =replace= 的结果都最终一样。</p>
+<h3 id="正则递归版本-尾调用未优化"><a href="#正则递归版本-尾调用未优化" class="headerlink" title="正则递归版本(尾调用未优化)"></a>正则递归版本(尾调用未优化)</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'abbaca'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> del = <span class="function"><span class="params">s</span> =&gt;</span> s.replace(<span class="regexp">/([a-z])\1&#123;1,&#125;/gi</span>, <span class="string">''</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rmDupsWithRecursionNoOptimized</span>(<span class="params">current, last</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (last == current) <span class="keyword">return</span> current</span><br><span class="line"></span><br><span class="line">  last = current</span><br><span class="line">  current = del(current)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> res = rmDupsWithRecursionNoOptimized(current, last)</span><br><span class="line">  <span class="comment">// 不满足尾调用优化：未立即返回执行结果，非最后一个语句</span></span><br><span class="line">  <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.time(<span class="string">'Time'</span>)</span><br><span class="line"><span class="keyword">const</span> res = rmDupsWithRecursionNoOptimized(str)</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">'Time'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(res)</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<blockquote>
+<p>: Time: 0.446ms<br>   : ca<br>   : undefined</p>
+</blockquote>
+<h3 id="正则递归版本-尾调用优化"><a href="#正则递归版本-尾调用优化" class="headerlink" title="正则递归版本(尾调用优化)"></a>正则递归版本(尾调用优化)</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'abbaca'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> del = <span class="function"><span class="params">s</span> =&gt;</span> s.replace(<span class="regexp">/([a-z])\1&#123;1,&#125;/gi</span>, <span class="string">''</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rmDupsWithRecursionOptimized</span>(<span class="params">current, last</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (last == current) <span class="keyword">return</span> current</span><br><span class="line"></span><br><span class="line">  last = current</span><br><span class="line">  current = del(current)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 尾调用优化条件： 1. 立即返回结果，2. 无变量引用，3. 最后一行</span></span><br><span class="line">  <span class="keyword">return</span> rmDupsWithRecursionOptimized(current, last)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.time(<span class="string">'Time'</span>)</span><br><span class="line"><span class="keyword">const</span> res = rmDupsWithRecursionOptimized(str)</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">'Time'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(res)</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>结果：</p>
+<blockquote>
+<dl><dt>: Time: 0.463ms<br>: ca</dt><dd>undefined</dd></dl></blockquote>
 
     </div>
 
@@ -268,7 +288,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://blog.ii6g.com/blog/hello-world.html" title="Hello World">http://blog.ii6g.com/blog/hello-world.html</a>
+    <a href="http://blog.ii6g.com/blog/algorithm-leetcode.html" title="算法系列(Algorithm)-leetcode（一）">http://blog.ii6g.com/blog/algorithm-leetcode.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -307,17 +327,21 @@
 
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/es6/" rel="tag"># es6</a>
+          </div>
 
         
 
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/blog/js-es6-plus.html" rel="next" title="ES6 新语法">
-      ES6 新语法 <i class="fa fa-chevron-right"></i>
+    <a href="/blog/algorithm-c-sort-algo.html" rel="prev" title="算法系列(Algorithm)-排序算法（C实现）">
+      <i class="fa fa-chevron-left"></i> 算法系列(Algorithm)-排序算法（C实现）
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -376,7 +400,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串操作"><span class="nav-number">1.</span> <span class="nav-text">字符串操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#删除字符串中重复的字符"><span class="nav-number">1.1.</span> <span class="nav-text">删除字符串中重复的字符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#while-循环版本"><span class="nav-number">1.1.1.</span> <span class="nav-text">while 循环版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则递归版本-尾调用未优化"><span class="nav-number">1.1.2.</span> <span class="nav-text">正则递归版本(尾调用未优化)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则递归版本-尾调用优化"><span class="nav-number">1.1.3.</span> <span class="nav-text">正则递归版本(尾调用优化)</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

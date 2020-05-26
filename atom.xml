@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.ii6g.com/"/>
-  <updated>2020-05-22T09:45:11.617Z</updated>
+  <updated>2020-05-22T10:53:18.921Z</updated>
   <id>http://blog.ii6g.com/</id>
   
   <author>
@@ -17,11 +17,67 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>算法系列(Algorithm)-leetcode（一）</title>
+    <link href="http://blog.ii6g.com/blog/algorithm-leetcode.html"/>
+    <id>http://blog.ii6g.com/blog/algorithm-leetcode.html</id>
+    <published>2020-05-22T10:22:30.862Z</published>
+    <updated>2020-05-22T10:53:18.921Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;字符串操作&quot;&gt;&lt;a href=&quot;#字符串操作&quot; class=&quot;headerlink&quot; title=&quot;字符串操作&quot;&gt;&lt;/a&gt;字符串操作&lt;/h1&gt;&lt;h2 id=&quot;删除字符串中重复的字符&quot;&gt;&lt;a href=&quot;#删除字符串中重复的字符&quot; class=&quot;headerlink
+      
+    
+    </summary>
+    
+    
+      <category term="algorithm" scheme="http://blog.ii6g.com/categories/algorithm/"/>
+    
+    
+      <category term="javascript" scheme="http://blog.ii6g.com/tags/javascript/"/>
+    
+      <category term="es6" scheme="http://blog.ii6g.com/tags/es6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>算法系列(Algorithm)-排序算法（C实现）</title>
+    <link href="http://blog.ii6g.com/blog/algorithm-c-sort-algo.html"/>
+    <id>http://blog.ii6g.com/blog/algorithm-c-sort-algo.html</id>
+    <published>2020-05-22T10:08:05.691Z</published>
+    <updated>2020-05-22T10:54:55.643Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;递归&quot;&gt;&lt;a href=&quot;#递归&quot; class=&quot;headerlink&quot; title=&quot;递归&quot;&gt;&lt;/a&gt;递归&lt;/h1&gt;&lt;h2 id=&quot;阶乘函数&quot;&gt;&lt;a href=&quot;#阶乘函数&quot; class=&quot;headerlink&quot; title=&quot;阶乘函数&quot;&gt;&lt;/a&gt;阶乘函数&lt;/h
+      
+    
+    </summary>
+    
+    
+      <category term="algorithm" scheme="http://blog.ii6g.com/categories/algorithm/"/>
+    
+    
+      <category term="algorithm" scheme="http://blog.ii6g.com/tags/algorithm/"/>
+    
+      <category term="javasciprt" scheme="http://blog.ii6g.com/tags/javasciprt/"/>
+    
+      <category term="c" scheme="http://blog.ii6g.com/tags/c/"/>
+    
+      <category term="python" scheme="http://blog.ii6g.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Vue next 源码之 reactivity</title>
     <link href="http://blog.ii6g.com/blog/vuejs-next-code-reactive.html"/>
     <id>http://blog.ii6g.com/blog/vuejs-next-code-reactive.html</id>
     <published>2020-05-15T07:47:23.649Z</published>
-    <updated>2020-05-22T09:45:11.617Z</updated>
+    <updated>2020-05-26T11:32:53.124Z</updated>
     
     <summary type="html">
     
@@ -40,9 +96,31 @@
 &lt;h2 id=&quot;阶段代码链接&quot;&gt;&lt;a href=&quot;#阶段代码链接&quot; class=&quot;headerlink&quot; title=&quot;阶段代码链接&quot;&gt;&lt;/a&gt;阶段代码链接&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;&lt;a href=&quot;#code1&quot;&gt;测试用例 &lt;code&gt;reactive.spec.ts&lt;/code&gt; 通过后的代码链接&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#code2&quot;&gt;测试用例 &lt;code&gt;effect.spec.ts&lt;/code&gt;通过后的代码链接&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#file-0521&quot;&gt;05-21号 git pull 后的更新合 并之后的 reactive.js&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_files_v&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;将 reactive.js 拆分成 effect.js + baseHandlers.js&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_collection_get_set&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;完成 collection handlers(set + get)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_collection_map_set&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;完成 collection Map, Set 支持&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_ref&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;支持 Ref 类型&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;文中重点链接&quot;&gt;&lt;a href=&quot;#文中重点链接&quot; class=&quot;headerlink&quot; title=&quot;文中重点链接&quot;&gt;&lt;/a&gt;文中重点链接&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;#test-case-rloops&quot;&gt;vue 中是如何防止在 effect(fn) 的 fn 中防止 ob.prop++ 导致栈溢出的？&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;#test-case-json&quot;&gt;vue 中为何能对 JSON.parse(JSON.stringify({})) 起作用的？&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;#question-this&quot;&gt;集合 handlers 的 get 函数实现 this 问题&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;#question-raw-key&quot;&gt;Key 和 rawKey 的问题(get 中)，为什么要两次 track:get？&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;#question-key1-key11&quot;&gt;为什么 key1 和 toReactive(key1) 后的 key11 前后 set 会改变 key1 对应的值？？？&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;#reactive-nest-ref&quot;&gt;如果 Ref 类型放在一个对象中 reactive 化会有什么结果？？？&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&quot;遗留问题&quot;&gt;&lt;a href=&quot;#遗留问题&quot; class=&quot;headerlink&quot; title=&quot;遗留问题&quot;&gt;&lt;/a&gt;遗留问题&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;&lt;font color=&quot;green&quot;&gt;DONE&lt;/font&gt;&lt;/strong&gt; &lt;code&gt;ownKeys&lt;/code&gt; 代理收集的依赖不能被触发。&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;font color=&quot;green&quot;&gt;DONE&lt;/font&gt;&lt;/strong&gt; &lt;code&gt;ownKeys&lt;/code&gt; 代理收集的依赖不能被触发。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;font color=&quot;red&quot;&gt;TODO&lt;/font&gt; &lt;a href=&quot;#question-ref-++&quot;&gt;Ref:a 类型在对象中执行 obj.a++ 之后依旧是 Ref 类型的 a ???&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&quot;更新&quot;&gt;&lt;a href=&quot;#更新&quot; class=&quot;headerlink&quot; title=&quot;更新&quot;&gt;&lt;/a&gt;更新&lt;/h2&gt;&lt;h3 id=&quot;2020-05-21-21-19-07-git-pull&quot;&gt;&lt;a href=&quot;#2020-05-21-21-19-07-git-pull&quot; class=&quot;headerlink&quot; title=&quot;2020-05-21 21:19:07 git pull&quot;&gt;&lt;/a&gt;2020-05-21 21:19:07 git pull&lt;/h3&gt;&lt;h1 id=&quot;模块结构&quot;&gt;&lt;a href=&quot;#模块结构&quot; class=&quot;headerlink&quot; title=&quot;模块结构&quot;&gt;&lt;/a&gt;模块结构&lt;/h1&gt;&lt;ol&gt;
 &lt;li&gt;&lt;code&gt;__tests__/&lt;/code&gt; 测试代码目录&lt;/li&gt;
