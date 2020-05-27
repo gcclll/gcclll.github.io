@@ -73,11 +73,11 @@
   </entry>
   
   <entry>
-    <title>Vue next 源码之 reactivity</title>
+    <title>Vue next 源码之 reactivity(从0-1过程)</title>
     <link href="http://blog.ii6g.com/blog/vuejs-next-code-reactive.html"/>
     <id>http://blog.ii6g.com/blog/vuejs-next-code-reactive.html</id>
     <published>2020-05-15T07:47:23.649Z</published>
-    <updated>2020-05-26T11:32:53.124Z</updated>
+    <updated>2020-05-27T08:52:42.969Z</updated>
     
     <summary type="html">
     
@@ -93,6 +93,7 @@
 
 &lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;&lt;font size=&quot;6&quot;&gt;&lt;a href=&quot;https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_over&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;完整的 reactivity 模块代码链接。&lt;/a&gt;&lt;/font&gt;&lt;/p&gt;
 &lt;h2 id=&quot;阶段代码链接&quot;&gt;&lt;a href=&quot;#阶段代码链接&quot; class=&quot;headerlink&quot; title=&quot;阶段代码链接&quot;&gt;&lt;/a&gt;阶段代码链接&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;&lt;a href=&quot;#code1&quot;&gt;测试用例 &lt;code&gt;reactive.spec.ts&lt;/code&gt; 通过后的代码链接&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#code2&quot;&gt;测试用例 &lt;code&gt;effect.spec.ts&lt;/code&gt;通过后的代码链接&lt;/a&gt;&lt;/li&gt;
@@ -101,6 +102,7 @@
 &lt;li&gt;&lt;a href=&quot;https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_collection_get_set&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;完成 collection handlers(set + get)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_collection_map_set&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;完成 collection Map, Set 支持&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_ref&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;支持 Ref 类型&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_computed&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;支持 computed 属性&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&quot;文中重点链接&quot;&gt;&lt;a href=&quot;#文中重点链接&quot; class=&quot;headerlink&quot; title=&quot;文中重点链接&quot;&gt;&lt;/a&gt;文中重点链接&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;#test-case-rloops&quot;&gt;vue 中是如何防止在 effect(fn) 的 fn 中防止 ob.prop++ 导致栈溢出的？&lt;/a&gt;&lt;/p&gt;
@@ -114,6 +116,8 @@
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;#question-key1-key11&quot;&gt;为什么 key1 和 toReactive(key1) 后的 key11 前后 set 会改变 key1 对应的值？？？&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&quot;#reactive-nest-ref&quot;&gt;如果 Ref 类型放在一个对象中 reactive 化会有什么结果？？？&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;#test-case-computed-chained&quot;&gt;计算属性的链式嵌套使用输出结果详细分析过程(想要透彻computed请看这里！！！)&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&quot;遗留问题&quot;&gt;&lt;a href=&quot;#遗留问题&quot; class=&quot;headerlink&quot; title=&quot;遗留问题&quot;&gt;&lt;/a&gt;遗留问题&lt;/h2&gt;&lt;ol&gt;
@@ -148,6 +152,12 @@
       <category term="vuejs" scheme="http://blog.ii6g.com/tags/vuejs/"/>
     
       <category term="vuenext" scheme="http://blog.ii6g.com/tags/vuenext/"/>
+    
+      <category term="reactive" scheme="http://blog.ii6g.com/tags/reactive/"/>
+    
+      <category term="reactivity" scheme="http://blog.ii6g.com/tags/reactivity/"/>
+    
+      <category term="vue3.0" scheme="http://blog.ii6g.com/tags/vue3-0/"/>
     
   </entry>
   

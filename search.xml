@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>//blog/hello-world.html</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+    <title>算法系列(Algorithm)-leetcode（一）</title>
+    <url>//blog/algorithm-leetcode.html</url>
+    <content><![CDATA[<h1 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h1><h2 id="删除字符串中重复的字符"><a href="#删除字符串中重复的字符" class="headerlink" title="删除字符串中重复的字符"></a>删除字符串中重复的字符</h2><p><a href="https://leetcode.com/articles/remove-all-adjacent-duplicates-in-string/" target="_blank" rel="noopener">https://leetcode.com/articles/remove-all-adjacent-duplicates-in-string/</a></p>
+<p>题解：删除靠着的重复字符，然后对删除后的字符执行同样的操作，直到没有紧靠着的重复字符为止。</p>
+<p>  比如： abbaca =&gt; del, bb =&gt; aaca =&gt; del, aa =&gt; ca</p>
+<p>  最终 =abbaca= 经过处理得到 =ca= 。</p>
+<h3 id="while-循环版本"><a href="#while-循环版本" class="headerlink" title="while 循环版本"></a><em>while</em> 循环版本</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> del = <span class="function"><span class="params">str</span> =&gt;</span> str.replace(<span class="regexp">/([a-z])\1&#123;1,&#125;/gi</span>, <span class="string">''</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rmDupsWithWhile</span>(<span class="params">current</span>) </span>&#123;</span><br><span class="line"><span class="keyword">let</span> last = <span class="string">''</span></span><br><span class="line"><span class="keyword">while</span> (last !== current) &#123;</span><br><span class="line">last = current</span><br><span class="line">current = del(current)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> current</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.time(<span class="string">'Time'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'result:'</span>, rmDupsWithWhile(<span class="string">'abbaca'</span>))</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">'Time'</span>)</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<blockquote>
+<dl><dt>: result: ca<br>: Time: 3.740ms</dt><dd>undefined</dd></dl></blockquote>
+<p>原理含简单，就是不断的使用正则去重复替换掉重复的连续字符，直到最后 <del>last === current</del> 为止，</p>
+<p>因为一旦没有重复连续字符了， =replace= 的结果都最终一样。</p>
+<h3 id="正则递归版本-尾调用未优化"><a href="#正则递归版本-尾调用未优化" class="headerlink" title="正则递归版本(尾调用未优化)"></a>正则递归版本(尾调用未优化)</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'abbaca'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> del = <span class="function"><span class="params">s</span> =&gt;</span> s.replace(<span class="regexp">/([a-z])\1&#123;1,&#125;/gi</span>, <span class="string">''</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rmDupsWithRecursionNoOptimized</span>(<span class="params">current, last</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (last == current) <span class="keyword">return</span> current</span><br><span class="line"></span><br><span class="line">  last = current</span><br><span class="line">  current = del(current)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> res = rmDupsWithRecursionNoOptimized(current, last)</span><br><span class="line">  <span class="comment">// 不满足尾调用优化：未立即返回执行结果，非最后一个语句</span></span><br><span class="line">  <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.time(<span class="string">'Time'</span>)</span><br><span class="line"><span class="keyword">const</span> res = rmDupsWithRecursionNoOptimized(str)</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">'Time'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(res)</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<blockquote>
+<p>: Time: 0.446ms<br>   : ca<br>   : undefined</p>
+</blockquote>
+<h3 id="正则递归版本-尾调用优化"><a href="#正则递归版本-尾调用优化" class="headerlink" title="正则递归版本(尾调用优化)"></a>正则递归版本(尾调用优化)</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'abbaca'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> del = <span class="function"><span class="params">s</span> =&gt;</span> s.replace(<span class="regexp">/([a-z])\1&#123;1,&#125;/gi</span>, <span class="string">''</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rmDupsWithRecursionOptimized</span>(<span class="params">current, last</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (last == current) <span class="keyword">return</span> current</span><br><span class="line"></span><br><span class="line">  last = current</span><br><span class="line">  current = del(current)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 尾调用优化条件： 1. 立即返回结果，2. 无变量引用，3. 最后一行</span></span><br><span class="line">  <span class="keyword">return</span> rmDupsWithRecursionOptimized(current, last)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.time(<span class="string">'Time'</span>)</span><br><span class="line"><span class="keyword">const</span> res = rmDupsWithRecursionOptimized(str)</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">'Time'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(res)</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>结果：</p>
+<blockquote>
+<dl><dt>: Time: 0.463ms<br>: ca</dt><dd>undefined</dd></dl></blockquote>
 ]]></content>
+      <categories>
+        <category>algorithm</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+        <tag>es6</tag>
+      </tags>
   </entry>
   <entry>
     <title>算法系列(Algorithm)-排序算法（C实现）</title>
@@ -421,41 +437,25 @@ null
       </tags>
   </entry>
   <entry>
-    <title>算法系列(Algorithm)-leetcode（一）</title>
-    <url>//blog/algorithm-leetcode.html</url>
-    <content><![CDATA[<h1 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h1><h2 id="删除字符串中重复的字符"><a href="#删除字符串中重复的字符" class="headerlink" title="删除字符串中重复的字符"></a>删除字符串中重复的字符</h2><p><a href="https://leetcode.com/articles/remove-all-adjacent-duplicates-in-string/" target="_blank" rel="noopener">https://leetcode.com/articles/remove-all-adjacent-duplicates-in-string/</a></p>
-<p>题解：删除靠着的重复字符，然后对删除后的字符执行同样的操作，直到没有紧靠着的重复字符为止。</p>
-<p>  比如： abbaca =&gt; del, bb =&gt; aaca =&gt; del, aa =&gt; ca</p>
-<p>  最终 =abbaca= 经过处理得到 =ca= 。</p>
-<h3 id="while-循环版本"><a href="#while-循环版本" class="headerlink" title="while 循环版本"></a><em>while</em> 循环版本</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> del = <span class="function"><span class="params">str</span> =&gt;</span> str.replace(<span class="regexp">/([a-z])\1&#123;1,&#125;/gi</span>, <span class="string">''</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rmDupsWithWhile</span>(<span class="params">current</span>) </span>&#123;</span><br><span class="line"><span class="keyword">let</span> last = <span class="string">''</span></span><br><span class="line"><span class="keyword">while</span> (last !== current) &#123;</span><br><span class="line">last = current</span><br><span class="line">current = del(current)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> current</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.time(<span class="string">'Time'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'result:'</span>, rmDupsWithWhile(<span class="string">'abbaca'</span>))</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">'Time'</span>)</span><br></pre></td></tr></table></figure>
+    <title>Hello World</title>
+    <url>//blog/hello-world.html</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 
-<p>执行结果：</p>
-<blockquote>
-<dl><dt>: result: ca<br>: Time: 3.740ms</dt><dd>undefined</dd></dl></blockquote>
-<p>原理含简单，就是不断的使用正则去重复替换掉重复的连续字符，直到最后 <del>last === current</del> 为止，</p>
-<p>因为一旦没有重复连续字符了， =replace= 的结果都最终一样。</p>
-<h3 id="正则递归版本-尾调用未优化"><a href="#正则递归版本-尾调用未优化" class="headerlink" title="正则递归版本(尾调用未优化)"></a>正则递归版本(尾调用未优化)</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'abbaca'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> del = <span class="function"><span class="params">s</span> =&gt;</span> s.replace(<span class="regexp">/([a-z])\1&#123;1,&#125;/gi</span>, <span class="string">''</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rmDupsWithRecursionNoOptimized</span>(<span class="params">current, last</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (last == current) <span class="keyword">return</span> current</span><br><span class="line"></span><br><span class="line">  last = current</span><br><span class="line">  current = del(current)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> res = rmDupsWithRecursionNoOptimized(current, last)</span><br><span class="line">  <span class="comment">// 不满足尾调用优化：未立即返回执行结果，非最后一个语句</span></span><br><span class="line">  <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.time(<span class="string">'Time'</span>)</span><br><span class="line"><span class="keyword">const</span> res = rmDupsWithRecursionNoOptimized(str)</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">'Time'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(res)</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 
-<p>结果：</p>
-<blockquote>
-<p>: Time: 0.446ms<br>   : ca<br>   : undefined</p>
-</blockquote>
-<h3 id="正则递归版本-尾调用优化"><a href="#正则递归版本-尾调用优化" class="headerlink" title="正则递归版本(尾调用优化)"></a>正则递归版本(尾调用优化)</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'abbaca'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> del = <span class="function"><span class="params">s</span> =&gt;</span> s.replace(<span class="regexp">/([a-z])\1&#123;1,&#125;/gi</span>, <span class="string">''</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rmDupsWithRecursionOptimized</span>(<span class="params">current, last</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (last == current) <span class="keyword">return</span> current</span><br><span class="line"></span><br><span class="line">  last = current</span><br><span class="line">  current = del(current)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 尾调用优化条件： 1. 立即返回结果，2. 无变量引用，3. 最后一行</span></span><br><span class="line">  <span class="keyword">return</span> rmDupsWithRecursionOptimized(current, last)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.time(<span class="string">'Time'</span>)</span><br><span class="line"><span class="keyword">const</span> res = rmDupsWithRecursionOptimized(str)</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">'Time'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(res)</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
-<p>结果：</p>
-<blockquote>
-<dl><dt>: Time: 0.463ms<br>: ca</dt><dd>undefined</dd></dl></blockquote>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
-      <categories>
-        <category>algorithm</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
-        <tag>es6</tag>
-      </tags>
   </entry>
   <entry>
-    <title>Vue next 源码之 reactivity</title>
+    <title>Vue next 源码之 reactivity(从0-1过程)</title>
     <url>//blog/vuejs-next-code-reactive.html</url>
     <content><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p><code>reactivity</code> 是 vue next 里面通过 <code>proxy</code> + <code>reflect</code> 实现的响应式模块。</p>
 <p>源码路径： <code>packages/reactivity</code></p>
@@ -469,6 +469,7 @@ null
 
 </li>
 </ol>
+<p><font size="6"><a href="https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_over" target="_blank" rel="noopener">完整的 reactivity 模块代码链接。</a></font></p>
 <h2 id="阶段代码链接"><a href="#阶段代码链接" class="headerlink" title="阶段代码链接"></a>阶段代码链接</h2><ol>
 <li><a href="#code1">测试用例 <code>reactive.spec.ts</code> 通过后的代码链接</a></li>
 <li><a href="#code2">测试用例 <code>effect.spec.ts</code>通过后的代码链接</a></li>
@@ -477,6 +478,7 @@ null
 <li><a href="https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_collection_get_set" target="_blank" rel="noopener">完成 collection handlers(set + get)</a></li>
 <li><a href="https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_collection_map_set" target="_blank" rel="noopener">完成 collection Map, Set 支持</a></li>
 <li><a href="https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_ref" target="_blank" rel="noopener">支持 Ref 类型</a></li>
+<li><a href="https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_computed" target="_blank" rel="noopener">支持 computed 属性</a></li>
 </ol>
 <h2 id="文中重点链接"><a href="#文中重点链接" class="headerlink" title="文中重点链接"></a>文中重点链接</h2><ol>
 <li><p><a href="#test-case-rloops">vue 中是如何防止在 effect(fn) 的 fn 中防止 ob.prop++ 导致栈溢出的？</a></p>
@@ -490,6 +492,8 @@ null
 <li><p><a href="#question-key1-key11">为什么 key1 和 toReactive(key1) 后的 key11 前后 set 会改变 key1 对应的值？？？</a></p>
 </li>
 <li><p><a href="#reactive-nest-ref">如果 Ref 类型放在一个对象中 reactive 化会有什么结果？？？</a></p>
+</li>
+<li><p><a href="#test-case-computed-chained">计算属性的链式嵌套使用输出结果详细分析过程(想要透彻computed请看这里！！！)</a></p>
 </li>
 </ol>
 <h2 id="遗留问题"><a href="#遗留问题" class="headerlink" title="遗留问题"></a>遗留问题</h2><ol>
@@ -1993,6 +1997,7 @@ null
 <p>结果：</p>
 <p><img src="http://qiniu.ii6g.com/1590477847.png?imageMogr2/thumbnail/!100p" alt=""></p>
 <p>对象最终会被整个成为 value，因为是用的 shallowRef，所以改变 r.value.nested.num 的值是不会触发 dummy 更新的。</p>
+<p>其他用法直接看下面的测试用例解析吧！！！</p>
 <h2 id="jest-2"><a href="#jest-2" class="headerlink" title="jest"></a>jest</h2><p>结果:</p>
 <blockquote>
 <p>☁  vue-next-code-read [master] ⚡  jest<br>PASS  packages/<strong>tests</strong>/reactive/reactive.spec.js<br>PASS  packages/<strong>tests</strong>/reactive/ref.spec.js<br>PASS  packages/<strong>tests</strong>/reactive/effect.spec.js<br>PASS  packages/<strong>tests</strong>/reactive/collection/WeakSet.spec.js<br>PASS  packages/<strong>tests</strong>/reactive/collection/Set.spec.js<br>PASS  packages/<strong>tests</strong>/reactive/collection/Map.spec.js<br>PASS  packages/<strong>tests</strong>/reactive/collection/WeakMap.spec.js</p>
@@ -2067,6 +2072,215 @@ null
 </li>
 </ul>
 <p><a href="https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_ref" target="_blank" rel="noopener">ref 版 reactive.js</a></p>
+<h1 id="computed-ts"><a href="#computed-ts" class="headerlink" title="computed.ts"></a>computed.ts</h1><p>最后一个了，两周的坚持总算快结束了。</p>
+<p>这块的实现就更简单了，就一个 computed() 函数，结合 effect() + ref 来实现。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">computed</span>(<span class="params">getterOrOptions</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> getter, setter</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> getterOrOptions === <span class="string">'function'</span>) &#123;</span><br><span class="line">    getter = getterOrOptions</span><br><span class="line">    setter = __DEV__ ? <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.warn(<span class="string">'计算属性只读。'</span>) : noop</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    getter = getterOrOptions.get</span><br><span class="line">    setter = getterOrOptions.set</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> dirty = <span class="literal">true</span> <span class="comment">// 脏位检查，为 true 表示值有变化，重新取值</span></span><br><span class="line">  <span class="keyword">let</span> value</span><br><span class="line">  <span class="keyword">let</span> computed </span><br><span class="line"></span><br><span class="line">  <span class="comment">// runner 不会立即执行，直到计算属性取值在 get value 中手动调用</span></span><br><span class="line">  <span class="comment">// 来触发所有有关的依赖，重新计算得到最新的值 value</span></span><br><span class="line">  <span class="keyword">const</span> runner = effect(getter, &#123;</span><br><span class="line">    lazy: <span class="literal">true</span>,</span><br><span class="line">    computed: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">// 然后这里提供调度器，不直接</span></span><br><span class="line">    scheduler: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (!dirty) &#123;</span><br><span class="line">        dirty = <span class="literal">true</span></span><br><span class="line">        trigger(computed, <span class="string">'set'</span>, <span class="string">'value'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  computed = &#123;</span><br><span class="line">    __v_isRef: <span class="literal">true</span>,</span><br><span class="line">    effect: runner,</span><br><span class="line">    <span class="keyword">get</span> value() &#123;</span><br><span class="line">      <span class="comment">// 取值时，检测 dirty ，如果脏了(有变)，就重新 runner 取值，运行所有 deps，得到最新的值</span></span><br><span class="line">      <span class="keyword">if</span> (dirty) &#123; </span><br><span class="line">        value = runner()</span><br><span class="line">        dirty = <span class="literal">false</span> <span class="comment">// 重新计算后的重置 </span></span><br><span class="line">      &#125;</span><br><span class="line">      track(computed, <span class="string">'get'</span>, <span class="string">'value'</span>) <span class="comment">// 收集依赖</span></span><br><span class="line">      <span class="keyword">return</span> value</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">set</span> value(newValue) &#123;</span><br><span class="line">      setter(newValue)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> computed</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试一：依赖收集"><a href="#测试一：依赖收集" class="headerlink" title="测试一：依赖收集"></a>测试一：依赖收集</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> value = reactive(&#123;&#125;)</span><br><span class="line"><span class="keyword">const</span> cValue = computed(<span class="function"><span class="params">()</span> =&gt;</span> value.foo)</span><br><span class="line">cValue.value</span><br><span class="line"><span class="built_in">console</span>.log(</span><br><span class="line">  cValue.effect.deps[<span class="number">0</span>].values().next().value === cValue.effect,</span><br><span class="line">  value</span><br><span class="line">)  <span class="comment">// true Proxy &#123;__v_reactive: Proxy&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>当 cValue.value 执行对 Ref 进行取值(get value())触发，执行</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">computed = &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  effect: runner,</span><br><span class="line">  <span class="keyword">get</span> value() &#123;</span><br><span class="line">    <span class="keyword">if</span> (dirty) &#123; <span class="comment">// 检测到 dirty = true</span></span><br><span class="line">      <span class="comment">// 执行 effect -&gt; 执行 getter: () =&gt; value.foo</span></span><br><span class="line">      <span class="comment">// 计算新值 undefined 赋值给 value</span></span><br><span class="line">      value = runner() </span><br><span class="line">      dirty = <span class="literal">false</span> </span><br><span class="line">    &#125;</span><br><span class="line">    track(computed, <span class="string">'get'</span>, <span class="string">'value'</span>) <span class="comment">// 触发</span></span><br><span class="line">	&#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>cValue.value</code> 首先这一句会触发两个 <code>track</code></p>
+<blockquote>
+<p>{shouldTrack: true, type: “get”, key: “foo”, target: {…}, activeEffect: ƒ}<br>{shouldTrack: true, activeEffect: undefined, type: “get”, key: “value”, target: {…}}</p>
+</blockquote>
+<ol>
+<li><code>get value()</code> 里面执行了 runner() -&gt; value.foo 取了一次 foo ，所以 <em>type: get, key: foo</em></li>
+<li><code>get value()</code> 里手动执行了一次 <code>track(computed, &#39;get&#39;, &#39;value&#39;)</code>，但是由于 activeEffect 是 undefined 所以不会继续往下执行</li>
+</ol>
+<p>因此，虽然调用了两次 track ，但只有 value.foo 的 track 会去往下收集 <code>effect:runner</code> 这个依赖。所以：</p>
+<p><code>cValue.effect.deps[0].values().next().value === cValue.effect // --&gt; true</code> </p>
+<p>随后， <code>value.foo = 1</code> 会触发上面收集到的依赖，执行一次 runner() 取 value.foo 的最新值： 1。</p>
+<p><img src="http://qiniu.ii6g.com/1590548272.png?imageMogr2/thumbnail/!100p" alt=""></p>
+<p>注意图中圈起来的，其实我想知道在调用 value.foo = 1 之后 cValue.value 的值会不会发生改变，按照代码逻辑是不会改变的，也就还是 undefined。但是直接点击 <code>...</code> 浏览器会相当于触发一次 <code>getter</code> 操作，最后结果会是 1，但是这不是我们想要的，不能让它触发。</p>
+<p>那么就得想办法在它触发之前将老的值输出出来才行，结合代码只有在 <code>get value()</code> 一开始加上打印才行，如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">computed = &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">get</span> value() &#123;</span><br><span class="line">    <span class="comment">// 因为点击省略号会触发 getter ，会进入到这里</span></span><br><span class="line">    <span class="comment">// 所以只需要提前将值打印出来就知道在 value.foo 设置下去之后</span></span><br><span class="line">    <span class="comment">// cValue.value 其实是没有发生任何改变的，依旧还是 undefined</span></span><br><span class="line">    <span class="built_in">console</span>.log(&#123; value &#125;, <span class="string">'before runner'</span>)</span><br><span class="line">    <span class="keyword">if</span> (dirty) &#123;</span><br><span class="line">      value = runner()</span><br><span class="line">      dirty = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    track(computed, <span class="string">'get'</span>, <span class="string">'value'</span>)</span><br><span class="line">    <span class="keyword">return</span> value</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://qiniu.ii6g.com/1590548546.png?imageMogr2/thumbnail/!100p" alt=""></p>
+<p>然后修改下输出： </p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> value = reactive(&#123;&#125;)</span><br><span class="line"><span class="keyword">const</span> cValue = computed(<span class="function"><span class="params">()</span> =&gt;</span> value.foo)</span><br><span class="line"><span class="built_in">console</span>.log(cValue.value, <span class="string">'1'</span>) <span class="comment">// undefined，触发 runner() 执行 () =&gt; value.foo</span></span><br><span class="line"><span class="comment">// 在这里并不会立即触发 runner() 调用 () =&gt; value.foo 更新 cValue.value 的值</span></span><br><span class="line"><span class="comment">// 所以在这里设置之后到最后的 log 之前 cValue.value 依旧是 undefined</span></span><br><span class="line"><span class="comment">// 但是这里会有个动作和 computed 有关，那就是计算属性里面的 scheduler() </span></span><br><span class="line"><span class="comment">// 里面会检测 dirty = false(因为上面 get value 过，所以是 false)，</span></span><br><span class="line"><span class="comment">// 触发 trigger(computed, 'set', 'value')，这里会触发所有和 computed-value 有关的依赖</span></span><br><span class="line"><span class="comment">// 还有个重要的就是将 dirty = true，这样，后面当访问计算属性的时候才会触发 runner() 更新值</span></span><br><span class="line">value.foo = <span class="number">1</span> </span><br><span class="line"><span class="comment">// 然后访问一次 cValue.value 触发其 get value() 检测到 dirty 是 true</span></span><br><span class="line"><span class="comment">// 然后触发 runner() 调用 () =&gt; value.foo 更新 value 的值</span></span><br><span class="line"><span class="comment">// 所以下面的输出值就是 value.foo 的值</span></span><br><span class="line"><span class="built_in">console</span>.log(cValue.value, <span class="string">'2'</span>) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="jest-3"><a href="#jest-3" class="headerlink" title="jest"></a>jest</h2><ul>
+<li><p><font color="green">✓ should return updated value (5 ms)</font></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">it(<span class="string">'should return updated value'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> value = reactive(&#123;&#125;)</span><br><span class="line">  <span class="comment">// 提供的是函数，所以只有 getter，且不会立即执行(计算属性有设置：lazy: true)</span></span><br><span class="line">  <span class="comment">// 返回一个 Ref 类型值</span></span><br><span class="line">  <span class="comment">// 依赖属性：value.foo</span></span><br><span class="line">  <span class="keyword">const</span> cValue = computed(<span class="function"><span class="params">()</span> =&gt;</span> value.foo)</span><br><span class="line">  <span class="comment">// 取值收集 value 的依赖，此时 dirty = true，执行 runner() 得到 undefined</span></span><br><span class="line">  expect(cValue.value).toBe(<span class="literal">undefined</span>)</span><br><span class="line">  <span class="comment">// 赋值触发 value.foo 的 trigger: set，然后检测到该 effect 有提供 scheduler</span></span><br><span class="line">  <span class="comment">// 因此调用 cValue.options.scheduer </span></span><br><span class="line">  <span class="comment">// 此时的 dirty = false(get value 的时候置为 false 的)，</span></span><br><span class="line">  <span class="comment">// 触发 cValue 的 trigger: set -&gt; value 调用 set value()</span></span><br><span class="line">  value.foo = <span class="number">1</span></span><br><span class="line">  expect(cValue.value).toBe(<span class="number">1</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p><font color="green">✓ should compute lazily (3 ms)</font></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">it(<span class="string">'should compute lazily'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> value = reactive(&#123;&#125;)</span><br><span class="line">  <span class="keyword">const</span> getter = jest.fn(<span class="function"><span class="params">()</span> =&gt;</span> value.foo)</span><br><span class="line">  <span class="keyword">const</span> cValue = computed(getter)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// lazy</span></span><br><span class="line">  expect(getter).not.toHaveBeenCalled() <span class="comment">// 计算属性默认是 lazy 的所以不会立即执行</span></span><br><span class="line"></span><br><span class="line">  expect(cValue.value).toBe(<span class="literal">undefined</span>) <span class="comment">// get value() -&gt; runner() -&gt; 触发一次 getter</span></span><br><span class="line">  expect(getter).toHaveBeenCalledTimes(<span class="number">1</span>) <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// should not compute again</span></span><br><span class="line">  cValue.value <span class="comment">// 因为上面取过一次值了所有 dirty = false ，不会重复 runner()</span></span><br><span class="line">  expect(getter).toHaveBeenCalledTimes(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// should not compute until needed</span></span><br><span class="line">  <span class="comment">// 不会立即重新计算，此时 cValue.value 值依旧是 undefined，上面有分析过了</span></span><br><span class="line">  <span class="comment">// 由于 foo 有收集到 computed.effect 这个依赖，一次赋值的时候会触发它执行</span></span><br><span class="line">  <span class="comment">// 而 computed.effect.options.scheduler 又存在，因此会执行 scheduler</span></span><br><span class="line">  <span class="comment">// 里面重置 dirty = true，标识值由变化</span></span><br><span class="line">  value.foo = <span class="number">1</span> </span><br><span class="line">  <span class="comment">// 因为不会触发 get value() 就不会 runner()，也就不会重新 getter()</span></span><br><span class="line">  expect(getter).toHaveBeenCalledTimes(<span class="number">1</span>) </span><br><span class="line"></span><br><span class="line">  <span class="comment">// now it should compute</span></span><br><span class="line">  <span class="comment">// 发生取值操作，会触发 get value() 此时 dirty = true(value.foo = 1的时候触发的 scheduler)</span></span><br><span class="line">  <span class="comment">// 因此这里取值的时候会发现值变化了，所以需要重新 runner() 取新值，然后又置 dirty = false</span></span><br><span class="line">  expect(cValue.value).toBe(<span class="number">1</span>)</span><br><span class="line">  <span class="comment">// 上面取值，runn() -&gt; getter()</span></span><br><span class="line">  expect(getter).toHaveBeenCalledTimes(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// should not compute again</span></span><br><span class="line">  cValue.value <span class="comment">// 一样的道理，dirty = false 了，所以不会重新 runner()</span></span><br><span class="line">  expect(getter).toHaveBeenCalledTimes(<span class="number">2</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p><font color="green">✓ should trigger effect (1 ms)</font></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> value = reactive(&#123;&#125;)</span><br><span class="line"><span class="keyword">const</span> cValue = computed(<span class="function"><span class="params">()</span> =&gt;</span> value.foo)</span><br><span class="line"><span class="keyword">let</span> dummy</span><br><span class="line">effect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 这个会立即执行一次，触发 get value() 执行 runner() -&gt; getter()</span></span><br><span class="line">  <span class="comment">// 但是 value.foo 是没有指定 所以是 undefined</span></span><br><span class="line">  dummy = cValue.value </span><br><span class="line">&#125;)</span><br><span class="line">expect(dummy).toBe(<span class="literal">undefined</span>)</span><br><span class="line"><span class="comment">// 这里设置为什么会触发 effect(fn) 里面的 fn 呢？？？</span></span><br><span class="line"><span class="comment">// 1. computed(updater1) 执行完之后，effect:runner() 并未立即执行</span></span><br><span class="line"><span class="comment">//   所以 shouldTrack = true 和 activeEffect = undefined 并没有任何改变</span></span><br><span class="line"><span class="comment">// 2. effect(fn) 执行完会立即执行 fn，里面访问了 cValue.value 触发 get value()</span></span><br><span class="line"><span class="comment">//   执行 effect:runner() -&gt; getter(): () =&gt; value.foo 此时 value.foo 取值触发其收集依赖</span></span><br><span class="line"><span class="comment">//   此时的 activeEffect 其实还是 fn，因为 fn 没有执行完就不会重置(try...finally)</span></span><br><span class="line"><span class="comment">// 3. 所以下面执行 value.foo = 1 的时候是会触发 fn 执行的，因为在 2 中已经将它收集到了</span></span><br><span class="line"><span class="comment">// 4. 执行 fn 导致 cValue.value 取值，触发 get value() 执行 runner() -&gt; getter() 取最新的</span></span><br><span class="line"><span class="comment">//    值 1，因此 dummy 的值就是 1 了。</span></span><br><span class="line">value.foo = <span class="number">1</span></span><br><span class="line">expect(dummy).toBe(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>所以上这个用例的关键点在于<strong><font color="red">理解 value.foo 是如何收集到 effect(fn) 里面的fn</font></strong>，因为 fn 里面并没有直接访问 value.foo ，而是访问的 cValue.value。</p>
+</li>
+<li><p><font color="green">✓ should work when chained (1 ms)</font><span id="test-case-computed-chained"></span></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">it(<span class="string">'should work when chained'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> value = reactive(&#123; <span class="attr">foo</span>: <span class="number">0</span> &#125;)</span><br><span class="line">  <span class="keyword">const</span> c1 = computed(<span class="function"><span class="params">()</span> =&gt;</span> value.foo)</span><br><span class="line">  <span class="keyword">const</span> c2 = computed(<span class="function"><span class="params">()</span> =&gt;</span> c1.value + <span class="number">1</span>)</span><br><span class="line">  <span class="comment">// 1. c2:runner() -&gt; c2:getter() -&gt; c1.value -&gt; c1:runner() -&gt; c1.getter() -&gt; 0 + 1 = 1</span></span><br><span class="line">  <span class="comment">// 且此时 value.foo 收集到了 c1.effect</span></span><br><span class="line">  <span class="comment">// 且 c1.value 在触发 get value() 时候收集到了 c2.effect</span></span><br><span class="line">  expect(c2.value).toBe(<span class="number">1</span>) </span><br><span class="line">  <span class="comment">// 2. 因为上面触发了 c1:runner() 所以 c1.value = 0</span></span><br><span class="line">  expect(c1.value).toBe(<span class="number">0</span>)</span><br><span class="line">  <span class="comment">// 3. 因为在 step1 value.foo 收集到了 c1:effect，所以这里改变 value.foo</span></span><br><span class="line">  <span class="comment">//   会触发 c1:effect，执行 runner()，将 c1:dirty 置为 true</span></span><br><span class="line">  value.foo++</span><br><span class="line">  <span class="comment">// 4. c2.value -&gt; c2: get value() -&gt; c2 runner() -&gt; c1.value: get value()</span></span><br><span class="line">  <span class="comment">//    -&gt; c1 runner() -&gt; value.foo = 1 + 1 = 2</span></span><br><span class="line">  expect(c2.value).toBe(<span class="number">2</span>)</span><br><span class="line">  <span class="comment">// 5. c1.value 此时就算不访问 c1.value 触发 get value() 这里 c1.value 也是 1</span></span><br><span class="line">  expect(c1.value).toBe(<span class="number">1</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>为了方便区分，这里给 <code>computed(getterOrOptions, id)</code> 加个 id 参数，方便跟踪当前是按个 computed .</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 从结果直接分析原因，将下面的输出行用 Pn 标记</span></span><br><span class="line"><span class="keyword">const</span> value = reactive(&#123; <span class="attr">foo</span>: <span class="number">0</span> &#125;)</span><br><span class="line"><span class="keyword">const</span> c1 = computed(<span class="function"><span class="params">()</span> =&gt;</span> value.foo, <span class="string">'c1'</span>)</span><br><span class="line"><span class="keyword">const</span> c2 = computed(<span class="function"><span class="params">()</span> =&gt;</span> c1.value + <span class="number">1</span>, <span class="string">'c2'</span>)</span><br><span class="line"><span class="comment">// 首先上面三行不会触发任何输出</span></span><br><span class="line"><span class="comment">// 1. log1 会触发 P1,P2,P3，原因：</span></span><br><span class="line"><span class="comment">//    c2.value -&gt; c2:get value()输出P1, dirty = true -&gt; </span></span><br><span class="line"><span class="comment">//          runner() + track + dirty = false -&gt;</span></span><br><span class="line"><span class="comment">//    执行 c2:getter(), c1.value + 1 -&gt; 访问 c1.value </span></span><br><span class="line"><span class="comment">//    c1.value -&gt; c1:get value()输出P2, dirty = true -&gt; </span></span><br><span class="line"><span class="comment">//          runner() + track + dirty = false -&gt;</span></span><br><span class="line"><span class="comment">//    执行 c1:getter(), c1.value = value.foo = 0</span></span><br><span class="line"><span class="comment">//    然后往回推： c1.value -&gt; c1.value + 1 = 1 -&gt; c2.value -&gt; 输出 P3，c2.value 值为 1</span></span><br><span class="line"><span class="comment">// 2. 第一步结束之后的状态：</span></span><br><span class="line"><span class="comment">//    value.foo, deps[c1.effect]，value.foo = 1</span></span><br><span class="line"><span class="comment">//    因为都触发了 get value() 所以各自收集到了自身的 effect </span></span><br><span class="line"><span class="comment">//    c1, deps[c1.effect], c1.value = 0, dirty = false，等待 scheduler 调用置为 true</span></span><br><span class="line"><span class="comment">//    c2, deps[c2.effect], c2.value = 1, dirty = false，等待 scheduler 调用置为 true</span></span><br><span class="line"><span class="built_in">console</span>.log(c2.value, <span class="string">'c2.value 1'</span>) <span class="comment">// log1, 1</span></span><br><span class="line"><span class="comment">// 3. log2 会触发 P4, P5，原因：</span></span><br><span class="line"><span class="comment">//    只是 c1.value 取值，会触发 get value()，因此有了 P4 输出</span></span><br><span class="line"><span class="comment">//    但因为此时的 dirty = false 不会重复执行 runner()，所以值依旧是 0，最后输出 P5</span></span><br><span class="line"><span class="built_in">console</span>.log(c1.value, <span class="string">'c1.value 1'</span>) <span class="comment">// log2, 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 增加下面三个输出，让依赖收集结果更清晰</span></span><br><span class="line"><span class="keyword">const</span> dep = targetMap.get(toRaw(value))</span><br><span class="line"><span class="comment">// 这里收集到的是 c1.effect，因为 c1.value -&gt;get value() 执行了 runner() 触发</span></span><br><span class="line"><span class="comment">// value.foo 将 c1.effect 收进 deps</span></span><br><span class="line"><span class="built_in">console</span>.log(dep, dep.get(<span class="string">'foo'</span>).values().next().value === c1.effect) <span class="comment">// , true</span></span><br><span class="line"><span class="built_in">console</span>.log(</span><br><span class="line">  c1.effect.deps,</span><br><span class="line">  c1.effect.deps[<span class="number">0</span>].values().next().value === c1.effect, <span class="comment">// true</span></span><br><span class="line">  <span class="string">'c1 deps'</span></span><br><span class="line">)</span><br><span class="line"><span class="built_in">console</span>.log(</span><br><span class="line">  c2.effect.deps,</span><br><span class="line">  c2.effect.deps[<span class="number">0</span>].values().next().value === c2.effect, <span class="comment">// true</span></span><br><span class="line">  <span class="string">'c2 deps'</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里++，会触发 c1.effect，因为 c1:dirty = false，所以调用 c1.options.scheduler，</span></span><br><span class="line"><span class="comment">// c1.dirty = true，trigger-c1:set-value</span></span><br><span class="line"><span class="comment">// 记住一点：computed 属性没有取值就不会触发 runner()，所以这句执行之后</span></span><br><span class="line"><span class="comment">// c1.value 依旧是 0，c2.value 依旧是 1</span></span><br><span class="line"><span class="comment">// 通过之前的方式可测试出结果，如下图中结果</span></span><br><span class="line">value.foo++</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. log3 会输出 P9, P10, P11</span></span><br><span class="line"><span class="comment">// c2.value 取值，触发 c2:runner() 重新计算值，c1.value + 1，触发</span></span><br><span class="line"><span class="comment">// c1.value 取值，触发 c1:runner() 重新计算值，得到 c1.value = value.foo(++之后的值为1) = 1</span></span><br><span class="line"><span class="comment">// 然后：c2.value = c1.value + 1 = 1 + 1 = 2</span></span><br><span class="line"><span class="comment">// 所以这里会输出2，请看下面的，P9,P10,P11，其实这句之后 c1.value 已经是 1了</span></span><br><span class="line"><span class="comment">// 因为这里触发了 c1.value 取值</span></span><br><span class="line"><span class="built_in">console</span>.log(c2.value, <span class="string">'c2.value 2'</span>) <span class="comment">// log3, 2</span></span><br><span class="line"><span class="comment">// 5. log4会输出 P12,P13，其实这里无论用不用 c1.value 它的值都已经是 1 了</span></span><br><span class="line"><span class="comment">//    所以这里纯粹只是取值，不会重复 runner()，因为 step 4-log3 触发过 get value() diry = false</span></span><br><span class="line"><span class="comment">//    了。</span></span><br><span class="line"><span class="built_in">console</span>.log(c1.value, <span class="string">'c1.value 2'</span>) <span class="comment">// log4, 1</span></span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<blockquote>
+<p>P1: {id: “c2”, value: undefined} “before runner”<br>P2: {id: “c1”, value: undefined} “before runner”<br>P3: 1 “c2.value 1”<br>P4: {id: “c1”, value: 0} “before runner”<br>P5: 0 “c1.value 1”</p>
+<p>P6: Map(1) {“foo” =&gt; Set(1)} true<br>P7: [Set(1)] true “c1 deps”<br>P8: [Set(1)] true “c2 deps”</p>
+<p>// 新增 Log3 之后的输出</p>
+<p>P9: {id: “c2”, value: 1} “before runner”<br>P10: {id: “c1”, value: 0} “before runner”<br>P11: 2 “c2.value 2”</p>
+<p>// 新增 log4 之后的输出</p>
+<p>P12: {id: “c1”, value: 1} “before runner”<br>P13: 1 “c1.value 2”</p>
+</blockquote>
+<p>点击省略号输出：</p>
+<p><img src="http://qiniu.ii6g.com/1590560419.png?imageMogr2/thumbnail/!100p" alt=""></p>
+</li>
+</ul>
+<ul>
+<li><p><font color="green">✓ should trigger effect when chained (3 ms)</font></p>
+<p><a href="#test-case-computed-chained">请看上一个用例的分析—-&gt;&gt;</a></p>
+</li>
+<li><p><font color="green">✓ should trigger effect when chained (mixed invocations) (3 ms)</font></p>
+<p><a href="#test-case-computed-chained">请看上上一个用例的分析—-&gt;&gt;</a></p>
+</li>
+<li><p><font color="green">✓ should no longer update when stopped (2 ms)</font></p>
+<p>同上。但是有一点需要知道，stop() 主要干两件事：</p>
+<ol>
+<li>cleanup(effect) -&gt; deps = [] 清空依赖</li>
+<li>effect.active = false</li>
+</ol>
+<p>那么问题就很清晰了，stop 之后 active 为 false，在执行 effect() 的时候一开始就是检测是不是激活状态，如果不是会返回 undefined(有 scheduler清空)或者 fn(…args) 执行结果。不会继续往下执行 try…finally。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!_effect.active) &#123;</span><br><span class="line">  <span class="keyword">return</span> options.scheduler ? <span class="literal">undefined</span> : fn(...args)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以说这里 stop 之后再赋值，调用 effect.scheduler() 相当于什么都没干。</p>
+</li>
+<li><p><font color="green">✓ should support setter (2 ms)</font></p>
+</li>
+<li><p><font color="green">✓ should trigger effect w/ setter</font></p>
+<p>plusOne.value = 0<code>会触发 setter 调用 options.set:</code>n.value = val - 1`。</p>
+<p>那么 n.value 变了 就会触发 effect(fn) 里面的 dep:fn 更新 dummy 值。</p>
+</li>
+<li><p><font color="green">✓ should warn if trying to set a readonly computed</font></p>
+</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><font size="20" color="red">Over</font><font size="3">💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥💥.</font></p>
+<p>终于结束了，经过两周的坚持，终于将 vue3.0 reactivity 模块源码“抄完”了。</p>
+<p>此时此刻，貌似没什么话要写的了……，唯有</p>
+<p><font color="magenta" size="6">路漫漫其修远兮，吾将上下而求索！！！</font></p>
+<p>两周以来，每天脑子空闲了里面都是 vue3.0 reactivity 代码，甚至睡觉都在做梦敲这块的代码，做梦都在思考所经历的代码流程和细节。</p>
+<p>总的下来，只有感叹自己能力不足，越学习越觉得自己垃圾！！！</p>
+<p>路还很长，不能放弃，回来这几年总感觉心有力而余不足，更是感叹大学没好好学好基础，更体会到书到用时方恨少方恨少，(⊙o⊙)…，有点扯远了！！！</p>
+<hr>
+<p>还是老老实实的来复盘⑧ （开始 -&gt; 🔚）：</p>
+<h2 id="第一阶段：reactive"><a href="#第一阶段：reactive" class="headerlink" title="*第一阶段：reactive() *"></a>*<em>第一阶段：reactive() *</em></h2><p><code>reactive(target) -&gt; createObjectReactive(target, isReadonly, baseHandlers, collectionHandlers)</code></p>
+<p>创建 reactive 对象，之前的 toProxy, toRaw 改成了 ReactiveFlags 标记方式存储到 target 和 observed 对象上了，而不是单独的声明两个模块遍历来专门存储 target -&gt; observed 和 observed -&gt; target 的关系。</p>
+<p><strong>baseHandlers</strong>: 基本对象类型的 proxy handler，原生的 Reflect 基本都提供了对应的能力。</p>
+<p><strong>collectionHandlers</strong>：集合类型(Map, Set, WeakMap, WeakSet) 对象的 proxy handlers，由于原生 Reflect 并没有支持它们的原子操作，所以只能通过对象的 proxy get ，来获取所调用的方法名去对应的 instrumentations 里面查找与之相关的 handler 来模拟集合类型的所有操作。</p>
+<p>可进行 reactive 的的条件</p>
+<ol>
+<li>_isVue: false 表示 Vue 实例类型</li>
+<li>_VNode: false 虚拟节点类型</li>
+<li>!rawValues 中的类型或值</li>
+<li>可 observable 类型(除Map, Set, WeakMap, WeakSet, Object, Array意外的类型)</li>
+<li>非 Object.isFrozen 类型</li>
+</ol>
+<p>经过更新之后前面三种都合并到了 ReactiveFlags.__v_skip 里面了(结合 markRaw(value) 将不能被观察的值置为 __v_skip: true)。</p>
+<p>最后变成了三种检测：</p>
+<ol>
+<li>__v_skip = false</li>
+<li>observable 类型</li>
+<li>非 frozen 对象</li>
+</ol>
+<p>取消 toProxy, toRaw 之后使用 target.<strong>v_readonly 和 target.</strong>v_reactive 来保存 observed,  target.__v_raw 来保存 proxy 之前的对象。</p>
+<p>所以一旦检测到 __v_readonly 和 __v_reactive 值存在就直接返回这个缓存的 proxy。</p>
+<h2 id="第二阶段：baseHandlers"><a href="#第二阶段：baseHandlers" class="headerlink" title="第二阶段：baseHandlers"></a>第二阶段：baseHandlers</h2><p><strong>createGetter -&gt; 创建 proxy get</strong>：</p>
+<p>返回的时候检测 isReadonly 决定使用 readonly() 还是 reactive() 做深层的 reactive。</p>
+<p>如果指定了 shallow = true 参数，那么只会针对对象的第一层做 reactive。</p>
+<p>如果是数组的三个索引操作，直接进入 arrayInstrumentations 处理，调用封装之后的 includes, indexOf, lastIndexOf。</p>
+<p>如果是 Ref 类型直接返回 res.value，如果又是数组，手动 track 一次数组元素的 ‘get’ 操作，直接返回该数组 res。</p>
+<p><strong>createSetter -&gt; 创建 proxy set</strong>：</p>
+<p>如果是 Ref 类型要将值设置到 oldValue.value 上，而不是直接将值通过 Reflect.set() 设置下去。</p>
+<p>然后根据 oldValue 和 newValue 进行比较，排除 NaN 的可能之后，如果有发生变化就调用 trigger，如果 target 上没有的 key 就是 <code>trigger: add</code>，否则 <code>trigger:set</code>。</p>
+<p><strong>deleteProperty -&gt; 创建 proxy delete</strong>：</p>
+<p>trigger delete。</p>
+<p><strong>has -&gt; 创建 proxy has</strong>：</p>
+<p>track has 收集依赖。</p>
+<p><strong>ownKeys -&gt; 创建 proxy ownKeys</strong> ：</p>
+<p>track ITERATE_KEY 迭代器收集依赖。</p>
+<h2 id="第三阶段：effect-构建-Dep"><a href="#第三阶段：effect-构建-Dep" class="headerlink" title="第三阶段：effect() 构建 Dep"></a>第三阶段：effect() 构建 Dep</h2><p>effect(fn, options) 是将 fn 构造成 Dep 类型，所以，其实Vue里面所有的依赖都是一个 effect 函数，函数上挂了若干个属性(<code>_isEffect, active, id, deps, options, raw</code>)。</p>
+<p>这里的重点在于 reactiveEffect 函数的实现里面有个 try…finally 它结合 shouldTrack 和 activeEffect 保证了在 Dep 里面执行 <code>value.n++</code> 不会出现死循环，因为 trigger 里面的 add 操作会检测这两个值，如果 <code>activeEffect !== effect</code>(当前的这个 Dep) 或者 <code>shouldTrack = false</code> 才会收集要执行的依赖。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="comment">// enable effect</span></span><br><span class="line">  <span class="keyword">return</span> fn(...) <span class="comment">// 这个就是 effect(() =&gt; &#123;&#125;) 传入的函数</span></span><br><span class="line">&#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">	<span class="comment">// 结束当前 effect 构建</span></span><br><span class="line">	<span class="comment">// shouldTrack = false</span></span><br><span class="line">	<span class="comment">// activeEffect = undefined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="第四阶段：collectionHandlers"><a href="#第四阶段：collectionHandlers" class="headerlink" title="第四阶段：collectionHandlers"></a>第四阶段：collectionHandlers</h2><p>这里就有意思了……</p>
+<p>因为没有集合类型的直接 proxy 对应的 Reflect，因此只能采取另类的方式来解决这个问题。</p>
+<p>不管什么情况下，obj.fn 都属于属性值的访问，也就是说当使用 obj.fn() 的时候，无论如何都会出发 obj 对 fn 属性的 <code>get</code> 操作。</p>
+<p>所以对于 collectionHandlers 里面就只有一个 get。</p>
+<p>然后通过 obj.fn -&gt; 出发 get, key 为 fn -&gt; <code>Reflect.get(instrumentations, &#39;fn&#39;, ...)</code>，然后通过 fn 即函数名称去 instrumentations 里面找到对应的函数(比如：set, get, add, has, 等等…)。</p>
+<p>最后根据调用 <code>obj.fn(...args)</code> 时传递的参数转接到 instrumentations 里面对应的函数参数上。</p>
+<p>这部分的重点在于 instrumentations 里面函数的调用时作用域问题的解决：</p>
+<ol>
+<li>从 target.prototype 原型上取出对应的方法(如：has, get, set, add)</li>
+<li>然后通过 <code>has.call(target)</code> 然后将调用域指回给 target(Map, Set…)</li>
+</ol>
+<p>不然会出现 Map.prototype.has 在 Proxy 类型上调用而找不到函数的问题。</p>
+<p>另一个需要关注的是 key, rawKey 的问题，这里的意义在于：</p>
+<p>​    <font color="blue"><em>如果 key-&gt; proxyKey ，如果同时用 key 和 proxyKey 取 get 值的时候会发现最终 proxyKey 会被转成 key再取值。这里应该是为了避免 proxyKey 和 key 会同时被添加如 Map 或 Set 问题</em>。</font></p>
+<h2 id="第四阶段：Ref"><a href="#第四阶段：Ref" class="headerlink" title="第四阶段：Ref"></a>第四阶段：Ref</h2><p>Ref 类型，主要提供了将原始类型值转成 reactive 的能力。</p>
+<p>它通过将值封装成 ： <code>{__v_isRef: true, get value(){}, set value() {} }</code> 对象来完成 reactive 功能。</p>
+<p>这里重点是几个函数：</p>
+<ol>
+<li><code>ref(value)</code> 将值转成 Ref 类型</li>
+<li><code>createRef(value, shallow)</code> 被 ref 或 shallowRef 调用来创建 Ref</li>
+<li><code>triggerRef(ref)</code> 触发 Ref 上的 deps</li>
+<li><code>customRef(factory)</code> 提供外部自定义 Ref 能力</li>
+<li><code>toRef(object)</code> 将对象转成 Ref 类型</li>
+</ol>
+<p>Ref 类型关键：</p>
+<ol>
+<li>get value() -&gt; track 收集依赖</li>
+<li>set value(val) -&gt; trigger 依赖</li>
+</ol>
+<h2 id="第五阶段：computed-getterOrOptions"><a href="#第五阶段：computed-getterOrOptions" class="headerlink" title="第五阶段：computed(getterOrOptions)"></a>第五阶段：computed(getterOrOptions)</h2><p>computed 实现原理：</p>
+<ol>
+<li>Ref 类型</li>
+<li>dirty 脏检查位</li>
+</ol>
+<p>所以计算属性就是个 Ref 类型结果对象，包含(<code>__v_isRef, get value(), set value()</code>)，有两种使用方式</p>
+<ol>
+<li>getterOrOptions 是函数那么就只会有 getter</li>
+<li>getterOrOptions 是对象可以提供自定义的 setter 和 getter</li>
+</ol>
+<p>每个 computed 都有一个名为 runner 的 effect，用来处理计算属性所依赖的值的变更所需要作出的行为。</p>
+<p>一个计算属性使用流程大概是这样的：</p>
+<ol>
+<li><p>取值触发 get value() </p>
+</li>
+<li><p>检查 dirty，如果为 true，表示值由边则调用 runner() 重新计算新值</p>
+</li>
+<li><p>如果依赖的值发生变更，也会触发 runner()</p>
+<p><em>因为 runner 是个 effect，在 fn 里面使用其他值(比如：<code>obj.foo</code>)会触发这些值来收集这个 effect:runner 所以这些值改变会触发 runner。</em></p>
+</li>
+<li><p>即 obj.foo++ 改变，调用 trigger:set，trigger的时候检测到 runner 有schudler 所有调用它</p>
+<p><em>此时 runner: dirty 如果是 false 情况下就会触发 trigger(computed, ‘set’, ‘value’)，重点是会将脏位标识置为 dirty = true，那么下次取值的时候就会知道值发生改变了，就会触发 runner() 重新计算值。</em></p>
+</li>
+<li><p>经过第四部之后， computed.value 并没有真正的更新，必须它被实际访问的时候才会去触发 runner() 重新计算值。</p>
+</li>
+</ol>
+<p><strong>所以说计算属性并不是在依赖值更新之后就会立即发生变化，必须在依赖值变更之后被访问了之后触发 get value() 才会重新计算值。</strong></p>
+<hr>
+<p>严格来说应该不是按照这五个阶段来完成的，其实最耗时间的是在第一和第二阶段，尤其是第二阶段。</p>
+<p>第二阶段耗时间的地方有两个</p>
+<ol>
+<li>createGetter -&gt; track</li>
+<li>createSetter -&gt; trigger</li>
+</ol>
+<p>主要时间花在这两个上了，所以如果还可以拆分阶段肯定是这里。</p>
 ]]></content>
       <categories>
         <category>vuejs</category>
@@ -2075,6 +2289,9 @@ null
         <tag>javascript</tag>
         <tag>vuejs</tag>
         <tag>vuenext</tag>
+        <tag>reactive</tag>
+        <tag>reactivity</tag>
+        <tag>vue3.0</tag>
       </tags>
   </entry>
   <entry>

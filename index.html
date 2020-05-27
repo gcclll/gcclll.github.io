@@ -735,7 +735,7 @@ null
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/vuejs-next-code-reactive.html" class="post-title-link" itemprop="url">Vue next 源码之 reactivity</a>
+            <a href="/blog/vuejs-next-code-reactive.html" class="post-title-link" itemprop="url">Vue next 源码之 reactivity(从0-1过程)</a>
         </h2>
 
         <div class="post-meta">
@@ -752,7 +752,7 @@ null
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-26 19:32:53" itemprop="dateModified" datetime="2020-05-26T19:32:53+08:00">2020-05-26</time>
+                <time title="修改时间：2020-05-27 16:52:42" itemprop="dateModified" datetime="2020-05-27T16:52:42+08:00">2020-05-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -787,6 +787,7 @@ null
 
 </li>
 </ol>
+<p><font size="6"><a href="https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_over" target="_blank" rel="noopener">完整的 reactivity 模块代码链接。</a></font></p>
 <h2 id="阶段代码链接"><a href="#阶段代码链接" class="headerlink" title="阶段代码链接"></a>阶段代码链接</h2><ol>
 <li><a href="#code1">测试用例 <code>reactive.spec.ts</code> 通过后的代码链接</a></li>
 <li><a href="#code2">测试用例 <code>effect.spec.ts</code>通过后的代码链接</a></li>
@@ -795,6 +796,7 @@ null
 <li><a href="https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_collection_get_set" target="_blank" rel="noopener">完成 collection handlers(set + get)</a></li>
 <li><a href="https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_collection_map_set" target="_blank" rel="noopener">完成 collection Map, Set 支持</a></li>
 <li><a href="https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_ref" target="_blank" rel="noopener">支持 Ref 类型</a></li>
+<li><a href="https://github.com/gcclll/vue-next-code-read/tree/master/bakups/reactive_computed" target="_blank" rel="noopener">支持 computed 属性</a></li>
 </ol>
 <h2 id="文中重点链接"><a href="#文中重点链接" class="headerlink" title="文中重点链接"></a>文中重点链接</h2><ol>
 <li><p><a href="#test-case-rloops">vue 中是如何防止在 effect(fn) 的 fn 中防止 ob.prop++ 导致栈溢出的？</a></p>
@@ -808,6 +810,8 @@ null
 <li><p><a href="#question-key1-key11">为什么 key1 和 toReactive(key1) 后的 key11 前后 set 会改变 key1 对应的值？？？</a></p>
 </li>
 <li><p><a href="#reactive-nest-ref">如果 Ref 类型放在一个对象中 reactive 化会有什么结果？？？</a></p>
+</li>
+<li><p><a href="#test-case-computed-chained">计算属性的链式嵌套使用输出结果详细分析过程(想要透彻computed请看这里！！！)</a></p>
 </li>
 </ol>
 <h2 id="遗留问题"><a href="#遗留问题" class="headerlink" title="遗留问题"></a>遗留问题</h2><ol>
@@ -1085,7 +1089,7 @@ null
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
